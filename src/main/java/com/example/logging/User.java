@@ -3,8 +3,8 @@ package com.example.logging;
 public class User {
 
     //private Long id;
-    private String firstName; //final?
-    private String lastName; //final?
+    private String firstName;
+    private String lastName;
     private Double time;
 
     public User(String firstName, String lastName, Double time) {
