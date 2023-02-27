@@ -1,10 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Logging</title>
 </head>
 <body>
+<h1>Time Registration</h1>
 
+<form action = "/" method="post">
+    First name: <input type="text" name="firstName"/>
+    Last name: <input type="text" name="lastName"/>
+    Worked hours: <input type="text" name="hoursWorked"/>
+    <input type="submit"/>
+</form>
+
+<table>
+    <tr>
+    <th>First name:</th>
+    <th>Last name:</th>
+    <th>Hours worked:</th>
+    </tr>
+    <tr th:each>  <!--for every registered person in the system-->
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
 </body>
 </html>
+
+<!--Nice to have -- Graphic view of checkin and checkout via a clock view: Check in: <input type="button" name="checkIn"/>
+    Check out: <input type="button" name="checkOut"/>-->
