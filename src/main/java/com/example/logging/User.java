@@ -7,10 +7,13 @@ public class User {
     private String lastName;
     private Double time;
 
-    public User(String firstName, String lastName, Double time) {
+    private TypeRegTime enumType;
+
+    public User(String firstName, String lastName, Double time, TypeRegTime enumType) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.time = time;
+        this.enumType = enumType;
     }
 
     public String getFirstName() {
@@ -35,5 +38,13 @@ public class User {
 
     public void setTime(Double time) {
         this.time = time;
+    }
+
+    public TypeRegTime getEnumType() {
+        return enumType;
+    }
+
+    public void setEnumType(TypeRegTime enumType) {
+        this.enumType = enumType;
     }
 }

@@ -14,22 +14,29 @@
 <form class="row gy-2 gx-3 align-items-center" action="/" method="post" th:object="${user}">
     <div class="col-sm-3">
         <div class="form-floating mb-3">
-            <input class="form-control" id="floating-firstName" placeholder="First Name" type="text"
+            <input class="form-control" id="floating-firstName" placeholder="First Name" enumType="text"
                    th:field="*{firstName}"/>
             <label for="floating-firstName">First name</label>
         </div>
     </div>
     <div class="col-sm-3">
         <div class="form-floating mb-3">
-            <input class="form-control" placeholder="Last Name" type="text" id="floating-lastName"
+            <input class="form-control" placeholder="Last Name" enumType="text" id="floating-lastName"
                    th:field="*{lastName}"/>
             <label for="floating-lastName"> Last name</label>
         </div>
     </div>
     <div class="col-sm-3">
         <div class="form-floating mb-3">
+            <select class="form-control"  th:field="*{enumType}">
+            <option th:each= "type:${TypeRegTime} "th:value="${type}" th:text = "${type}" ></option>
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="form-floating mb-3">
             <input class="form-control" placeholder="Worked hours"
-                   type="number" id="floating-time"
+                   enumType="number" id="floating-time"
                    step="0.5" min="0" max="8"
                    th:field="*{time}"/>
             <label class="form-label" for="floating-time"> Worked hours</label>
@@ -39,7 +46,7 @@
     </div>
     <div class="row">
         <div class="col-sm-5">
-            <input class="btn btn-primary" type="submit"/>
+            <input class="btn btn-primary" enumType="submit"/>
         </div>
     </div>
     </div>
@@ -50,11 +57,13 @@
     <tr>
         <th>First name:</th>
         <th>Last name:</th>
+        <th>Type of work:</th>
         <th>Hours worked:</th>
     </tr>
     <tr th:each="user:${session.users}">
         <td th:text="${user.firstName}"></td>
         <td th:text="${user.lastName}"></td>
+        <td th:text="${user.enumType}"></td>
         <td th:text="${user.time}"></td>
     </tr>
 </table>
@@ -64,5 +73,5 @@
 </body>
 </html>
 
-<!--Nice to have -- Graphic view of checkin and checkout via a clock view: Check in: <input type="button" name="checkIn"/>
-    Check out: <input type="button" name="checkOut"/>-->
+<!--Nice to have -- Graphic view of checkin and checkout via a clock view: Check in: <input enumType="button" name="checkIn"/>
+    Check out: <input enumType="button" name="checkOut"/>-->
