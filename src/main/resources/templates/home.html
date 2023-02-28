@@ -11,22 +11,7 @@
 <body>
 <h1 class="animated bounce infinite">Time Registration</h1>
 
-<form class="row gy-2 gx-3 align-items-center" action="/" method="post" th:object="${user}">
-    <div class="col-sm-3">
-        <div class="form-floating mb-3">
-            <input class="form-control" id="floating-firstName" placeholder="First Name" Type="text"
-                   th:field="*{firstName}"/>
-            <label for="floating-firstName">First name</label>
-        </div>
-    </div>
-    <div class="col-sm-3">
-        <div class="form-floating mb-3">
-            <input class="form-control" placeholder="Last Name" Type="text" id="floating-lastName"
-                   th:field="*{lastName}"/>
-            <label for="floating-lastName"> Last name</label>
-        </div>
-    </div>
-
+<form class="row gy-2 gx-3 align-items-center" action="/" method="post" th:object="${TimeRegistration}">
     <div class="col-sm-3">
         <div class="form-floating mb-3">
             <input class="form-control" placeholder="Date" Type="date" th:attr="min = ${minDate}, max = ${maxDate}" id="floating-date"

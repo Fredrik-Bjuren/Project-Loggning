@@ -1,6 +1,7 @@
 package com.example.logging;
 
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,50 +16,62 @@ import java.util.List;
 
 @Controller
 public class LoggingController {
+
+    @Autowired
+    User user;
+
     LocalDate minDate = LocalDate.now().minusDays(30);
     LocalDate maxDate = LocalDate.now().plusDays(365);
 
-    @GetMapping("/login")
-    String login(){
+    @GetMapping("/")
+    String login() {
         return "login";
     }
-    @PostMapping("/login")
+
+    @PostMapping("/")
     String postLogin() {
         return "login";
     }
 
 
-    @GetMapping("/")
+    @GetMapping("/home")
     public String home(Model model) {
         model.addAttribute("user", new User());
         model.addAttribute("TypeRegTime", TypeRegTime.values());
-        model.addAttribute("minDate",minDate.toString());
-        model.addAttribute("maxDate",maxDate.toString());
-        return "logging";
+        model.addAttribute("minDate", minDate.toString());
+        model.addAttribute("maxDate", maxDate.toString());
+        return "home";
     }
 
-    @PostMapping("/")
-    public String registration(HttpSession session, @ModelAttribute User user, Model model) {
-        List<User> users;
+    @PostMapping("/home")
+    public String registration(HttpSession session, Model model) {
 
-        if (session.getAttribute("users") == null) {
-            users = new ArrayList<>();
-        } else {
-            users = (List) session.getAttribute("users");
-        }
-
-        users.add(user);
-
-        session.setAttribute("users", users);
-        model.addAttribute("user", new User());
+        model.addAttribute("userTimeRegistration", new TimeRegistration());
         model.addAttribute("TypeRegTime", TypeRegTime.values());
-        model.addAttribute("minDate",minDate.toString());
-        model.addAttribute("maxDate",maxDate.toString());
+        model.addAttribute("minDate", minDate.toString());
+        model.addAttribute("maxDate", maxDate.toString());
 
         System.out.println(minDate.toString());
         System.out.println(maxDate.toString());
 
-        return "logging";
+        return "home";
     }
+
+    @GetMapping("/signup")
+    public String signup(HttpSession session, Model model) {
+        model.addAttribute("user",new User());
+        return "signup";
+    }
+
+    @PostMapping("/signup")
+    public String signupPost(@RequestParam String username, @RequestParam String email, @RequestParam String firstName, @RequestParam String lastName,Model model) {
+        user.setUserTimeRegistrations(new ArrayList<>());
+        user.setUsername(username);
+        user.setEmail(email);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        return "home";
+    }
+
 
 }

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Signup</title>
+</head>
+<body>
+<form class="row gy-2 gx-3 align-items-center" action="/signup" method="post">
+  <div class="col-sm-3">
+    <div class="form-floating mb-3">
+      <input class="form-control" name="username" id="floating-userName" placeholder="Username" type="text"/>
+      <label for="floating-userName">Username</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input class="form-control" name="email" id="floating-email" th:field="*{email}" placeholder="email" type="email"/>
+      <label for="floating-email">Email</label>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-floating mb-3">
+        <input class="form-control" id="floating-firstName" placeholder="First Name" Type="text"
+               th:field="*{firstName}"/>
+        <label for="floating-firstName">First name</label>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-floating mb-3">
+        <input class="form-control" placeholder="Last Name" Type="text" id="floating-lastName"
+               th:field="*{lastName}"/>
+        <label for="floating-lastName"> Last name</label>
+      </div>
+    </div>
+    <div class="form-floating mb-3">
+      <input class="form-control" name="password" th:field="*{password}" id="floating-password" placeholder="Password" type="password"/>
+      <label for="floating-password">Password</label>
+    </div>
+    <div class="form-floating mb-3">
+      <input class="form-control" name="retype-password" id="floating-retypePassword" placeholder="Password" type="password"/>
+      <label for="floating-retypePassword">Password</label>
+    </div>
+    <input type="submit" value="Signup"/>
+  </div>
+</form>
+
+</body>
+</html>
