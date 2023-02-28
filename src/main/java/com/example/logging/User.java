@@ -1,19 +1,26 @@
 package com.example.logging;
 
+import java.util.Date;
+
 public class User {
 
     //private Long id;
     private String firstName;
     private String lastName;
     private Double time;
-
     private TypeRegTime enumType;
+    private String date;
 
-    public User(String firstName, String lastName, Double time, TypeRegTime enumType) {
+    public User(){
+
+    }
+
+    public User(String firstName, String lastName, Double time, TypeRegTime enumType, String date) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.time = time;
         this.enumType = enumType;
+        this.date = date;
     }
 
     public String getFirstName() {
@@ -46,5 +53,12 @@ public class User {
 
     public void setEnumType(TypeRegTime enumType) {
         this.enumType = enumType;
+    }
+
+    public String getDate() {
+        return date;
+    }
+    public void setDate(String date) {
+        this.date = date;
     }
 }

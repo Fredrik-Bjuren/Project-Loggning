@@ -14,29 +14,40 @@
 <form class="row gy-2 gx-3 align-items-center" action="/" method="post" th:object="${user}">
     <div class="col-sm-3">
         <div class="form-floating mb-3">
-            <input class="form-control" id="floating-firstName" placeholder="First Name" enumType="text"
+            <input class="form-control" id="floating-firstName" placeholder="First Name" Type="text"
                    th:field="*{firstName}"/>
             <label for="floating-firstName">First name</label>
         </div>
     </div>
     <div class="col-sm-3">
         <div class="form-floating mb-3">
-            <input class="form-control" placeholder="Last Name" enumType="text" id="floating-lastName"
+            <input class="form-control" placeholder="Last Name" Type="text" id="floating-lastName"
                    th:field="*{lastName}"/>
             <label for="floating-lastName"> Last name</label>
         </div>
     </div>
+
     <div class="col-sm-3">
         <div class="form-floating mb-3">
-            <select class="form-control"  th:field="*{enumType}">
-            <option th:each= "type:${TypeRegTime} "th:value="${type}" th:text = "${type}" ></option>
-            </select>
+            <input class="form-control" placeholder="Date" Type="date" th:attr="min = ${minDate}, max = ${maxDate}" id="floating-date"
+                   th:field="*{date}"/>
+            <label for="floating-date">Date</label>
         </div>
     </div>
+
+    <div class="col-sm-3">
+        <div class="form-floating mb-3">
+            <select class="form-control" id="floating-enumType" aria-label="Type of work" th:field="*{enumType}">
+            <option th:each= "type:${TypeRegTime} "th:value="${type}" th:text = "${type}" ></option>
+            </select>
+            <label for="floating-enumType"> Type of work</label>
+        </div>
+    </div>
+
     <div class="col-sm-3">
         <div class="form-floating mb-3">
             <input class="form-control" placeholder="Worked hours"
-                   enumType="number" id="floating-time"
+                   Type="number" id="floating-time"
                    step="0.5" min="0" max="8"
                    th:field="*{time}"/>
             <label class="form-label" for="floating-time"> Worked hours</label>
@@ -46,7 +57,7 @@
     </div>
     <div class="row">
         <div class="col-sm-5">
-            <input class="btn btn-primary" enumType="submit"/>
+            <input class="btn btn-primary" Type="submit"/>
         </div>
     </div>
     </div>
@@ -57,12 +68,14 @@
     <tr>
         <th>First name:</th>
         <th>Last name:</th>
+        <th>Date:</th>
         <th>Type of work:</th>
         <th>Hours worked:</th>
     </tr>
     <tr th:each="user:${session.users}">
         <td th:text="${user.firstName}"></td>
         <td th:text="${user.lastName}"></td>
+        <td th:text="${user.date}"></td>
         <td th:text="${user.enumType}"></td>
         <td th:text="${user.time}"></td>
     </tr>

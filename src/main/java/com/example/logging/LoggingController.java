@@ -8,15 +8,32 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
 public class LoggingController {
+    LocalDate minDate = LocalDate.now().minusDays(30);
+    LocalDate maxDate = LocalDate.now().plusDays(365);
+
+    @GetMapping("/login")
+    String login(){
+        return "login";
+    }
+    @PostMapping("/login")
+    String postLogin() {
+        return "login";
+    }
+
 
     @GetMapping("/")
-    public String home(HttpSession session, Model model) {
-        model.addAttribute("user", new User("","",null, TypeRegTime.WORK));
+    public String home(Model model) {
+        model.addAttribute("user", new User());
+        model.addAttribute("TypeRegTime", TypeRegTime.values());
+        model.addAttribute("minDate",minDate.toString());
+        model.addAttribute("maxDate",maxDate.toString());
         return "logging";
     }
 
@@ -33,12 +50,15 @@ public class LoggingController {
         users.add(user);
 
         session.setAttribute("users", users);
-        model.addAttribute("user", new User("","",null, TypeRegTime.WORK));
+        model.addAttribute("user", new User());
+        model.addAttribute("TypeRegTime", TypeRegTime.values());
+        model.addAttribute("minDate",minDate.toString());
+        model.addAttribute("maxDate",maxDate.toString());
 
-        model.addAttribute("TypeRegTime", TypeRegTime.values() );
-
-
+        System.out.println(minDate.toString());
+        System.out.println(maxDate.toString());
 
         return "logging";
     }
+
 }
