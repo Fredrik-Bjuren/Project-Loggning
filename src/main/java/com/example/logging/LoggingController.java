@@ -36,7 +36,7 @@ public class LoggingController {
 
     @GetMapping("/home")
     public String home(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("userTimeRegistration", new TimeRegistration());
         model.addAttribute("TypeRegTime", TypeRegTime.values());
         model.addAttribute("minDate", minDate.toString());
         model.addAttribute("maxDate", maxDate.toString());
@@ -44,8 +44,8 @@ public class LoggingController {
     }
 
     @PostMapping("/home")
-    public String registration(HttpSession session, Model model) {
-
+    public String registration(HttpSession session, Model model, @ModelAttribute TimeRegistration timeRegistration) {
+        user.addTimeRegistration(timeRegistration);
         model.addAttribute("userTimeRegistration", new TimeRegistration());
         model.addAttribute("TypeRegTime", TypeRegTime.values());
         model.addAttribute("minDate", minDate.toString());

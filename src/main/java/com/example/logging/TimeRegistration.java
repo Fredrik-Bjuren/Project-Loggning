@@ -6,13 +6,13 @@ public class TimeRegistration {
 
     private Double time;
     private TypeRegTime enumType;
-    private LocalDate date;
+    private String date;
 
     public TimeRegistration(){
 
     }
 
-    public TimeRegistration(Double time, TypeRegTime enumType, LocalDate date) {
+    public TimeRegistration(Double time, TypeRegTime enumType, String date) {
         this.time = time;
         this.enumType = enumType;
         this.date = date;
@@ -34,11 +34,11 @@ public class TimeRegistration {
         this.enumType = enumType;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
