@@ -34,13 +34,19 @@ public class LoggingController {
         model.addAttribute("TypeRegTime", TypeRegTime.values());
         model.addAttribute("minDate", minDate.toString());
         model.addAttribute("maxDate", maxDate.toString());
-        model.addAttribute("user",user);
         return "home";
     }
 
 
     @GetMapping("/home")
-    public String home(Model model) {
+    public String home(@RequestParam(required = false) String sort, Model model) {
+        if(sort !=null) {
+            switch (sort) {
+                case "category" -> user.sortByCategory();
+                case "time" -> user.sortByHours();
+                default -> user.sortByDate();
+            }
+        }
         model.addAttribute("userTimeRegistration", new TimeRegistration());
         model.addAttribute("TypeRegTime", TypeRegTime.values());
         model.addAttribute("minDate", minDate.toString());
@@ -55,28 +61,22 @@ public class LoggingController {
         model.addAttribute("TypeRegTime", TypeRegTime.values());
         model.addAttribute("minDate", minDate.toString());
         model.addAttribute("maxDate", maxDate.toString());
-
-        System.out.println(minDate.toString());
-        System.out.println(maxDate.toString());
-
         return "home";
     }
 
     @GetMapping("/signup")
     public String signup(HttpSession session, Model model) {
-        model.addAttribute("user",new User());
         return "signup";
     }
 
     @PostMapping("/signup")
-    public String signupPost(@RequestParam String username, @RequestParam String email, @RequestParam String firstName, @RequestParam String lastName,Model model) {
+    public String signupPost(@RequestParam String username, @RequestParam String email,@RequestParam String password, @RequestParam String firstName, @RequestParam String lastName,Model model) {
         user.setUserTimeRegistrations(new ArrayList<>());
         user.setUsername(username);
         user.setEmail(email);
         user.setFirstName(firstName);
-        System.out.println(firstName);
-        System.out.println(user.getFirstName());
         user.setLastName(lastName);
+        user.setPassword(password);
         return "login";
     }
 

@@ -6,7 +6,7 @@ public class TimeRegistration {
 
     private Double time;
     private TypeRegTime enumType;
-    private String date;
+    private String date; //sortByDate String-problem fixa?
 
     public TimeRegistration(){
 
@@ -16,6 +16,15 @@ public class TimeRegistration {
         this.time = time;
         this.enumType = enumType;
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "TimeRegistration{" +
+                "time=" + time +
+                ", enumType=" + enumType +
+                ", date='" + date + '\'' +
+                '}';
     }
 
     public Double getTime() {

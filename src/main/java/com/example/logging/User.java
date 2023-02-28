@@ -3,16 +3,17 @@ package com.example.logging;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
-import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 @Service
 @SessionScope
 public class User {
-
+    //TODO validation
     private int id;
     int counter=1;
     private String firstName;
+
     private String lastName;
     private String username;
     private String email;
@@ -20,30 +21,53 @@ public class User {
 
     private List <TimeRegistration> userTimeRegistrations;
 
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", counter=" + counter +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", userTimeRegistrations=" + userTimeRegistrations +
+                '}';
+    }
+
+
     public List<TimeRegistration> getUserTimeRegistrations() {
         return userTimeRegistrations;
     }
 
+    public void sortByDate() {
+        userTimeRegistrations.sort(Comparator.comparing(TimeRegistration::getDate));
+        System.out.println("Date");
+    }
+
+    public void sortByHours() {
+        userTimeRegistrations.sort(Comparator.comparing(TimeRegistration::getTime));
+        System.out.println("Hours");
+    }
+
+    public void sortByCategory() {
+        userTimeRegistrations.sort(Comparator.comparing(TimeRegistration::getEnumType));
+        System.out.println("Category");
+    }
     public void setUserTimeRegistrations(List<TimeRegistration> userTimeRegistrations) {
         this.userTimeRegistrations = userTimeRegistrations;
     }
 
-
-    public User(){
-
-    }
-
-    public User(String firstName, String lastName, String username, String email, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.username = username;
-        this.email = email;
-        this.password = password;
+    public User() {
         id=counter;
         userTimeRegistrations=new ArrayList<>();
         counter++;
     }
 
+    public double getTotalTime(){
+        return userTimeRegistrations.stream().mapToDouble(x->x.getTime()).sum();
+    }
     public void addTimeRegistration(TimeRegistration timeRegistration){
         userTimeRegistrations.add(timeRegistration);
     }
@@ -84,7 +108,7 @@ public class User {
         return password;
     }
 
-    private void setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 }
