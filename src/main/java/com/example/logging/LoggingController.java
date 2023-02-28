@@ -29,8 +29,13 @@ public class LoggingController {
     }
 
     @PostMapping("/")
-    String postLogin() {
-        return "login";
+    String postLogin(Model model) {
+        model.addAttribute("userTimeRegistration", new TimeRegistration());
+        model.addAttribute("TypeRegTime", TypeRegTime.values());
+        model.addAttribute("minDate", minDate.toString());
+        model.addAttribute("maxDate", maxDate.toString());
+        model.addAttribute("user",user);
+        return "home";
     }
 
 
@@ -69,8 +74,10 @@ public class LoggingController {
         user.setUsername(username);
         user.setEmail(email);
         user.setFirstName(firstName);
+        System.out.println(firstName);
+        System.out.println(user.getFirstName());
         user.setLastName(lastName);
-        return "home";
+        return "login";
     }
 
 
