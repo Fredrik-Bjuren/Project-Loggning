@@ -1,5 +1,10 @@
 package com.example.logging;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.SessionScope;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -7,15 +12,22 @@ import java.util.List;
 import java.util.Random;
 
 public class User {
-    //TODO validation
     private int id;
+    int counter=1;
+    @Size(min=1,max=20, message="Must be between 1-20 characters.")
+    @NotEmpty(message=("First name is mandatory."))
     private static int counter=1;
-
     private String firstName;
-
+    @Size(min=1,max=20, message="Must be between 1-20 characters.")
+   @NotEmpty(message=("Last name is mandatory."))
     private String lastName;
+    @Size(min=3,max=15,message="Must be between 3-15 characters.")
+   @NotEmpty(message=("Username is mandatory."))
     private String username;
+    @Email
+   @NotEmpty(message=("Email is mandatory."))
     private String email;
+    @Size(min=6,max=20,message="Password must be between 6-20 characters")
     private String password;
     private List <TimeRegistration> userTimeRegistrations;
 
@@ -60,7 +72,6 @@ public class User {
         id=counter;
         userTimeRegistrations=createTestArray();
         counter++;
-        System.out.println("Denna constructor");
     }
 
     public List<TimeRegistration> createTestArray() {
@@ -69,7 +80,7 @@ public class User {
         for (int i = 0; i < 10; i++) {
             testArray.add(new TimeRegistration(random.nextDouble(7)+1,
                     TypeRegTime.values()[random.nextInt(4)],
-                    LocalDate.now().plusDays(random.nextInt(30)+1).toString() ));
+                    LocalDate.now().plusDays(random.nextInt(30)+1).toString(),"comment"));
         }
         return testArray;
     }

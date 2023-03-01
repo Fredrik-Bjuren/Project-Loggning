@@ -9,40 +9,58 @@
 </head>
 <body>
 
+
+
 <h1>Sign up</h1>
 <h3>Create your account here!</h3>
 <br>
-
-<form class="row gy-2 gx-3 align-items-center" action="/signup" method="post">
+<form class="row gy-2 gx-3 align-items-center" action="/signup" method="post" th:object="${user}">
   <div class="col-sm-3">
+
     <div class="form-floating mb-3">
-      <input class="form-control" name="username" id="floating-userName" placeholder="Username" type="text"/>
+      <input class="form-control" th:field="*{username}" id="floating-userName" placeholder="Username" type="text" th:errorclass="error"/>
+      <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">3-15 characters in username.</p>
       <label for="floating-userName">Username: </label>
     </div>
+
     <div class="form-floating mb-3">
       <input class="form-control" name="email" id="floating-email" placeholder="email" type="email"/>
+      <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Invalid email.</p>
       <label for="floating-email">Email: </label>
     </div>
 
-      <div class="form-floating mb-3">
-        <input class="form-control" name="firstName" id="floating-firstName" placeholder="First Name" Type="text"/>
-        <label for="floating-firstName">Firstname: </label>
-      </div>
+    <div class="form-floating mb-3">
+      <input class="form-control" name="firstName" id="floating-firstName" placeholder="First Name" Type="text"/>
+      <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">1-20 characters in first name.</p>
+      <label for="floating-firstName">Firstname: </label>
+    </div>
 
 
-      <div class="form-floating mb-3">
-        <input class="form-control" name="lastName" placeholder="Last Name" Type="text" id="floating-lastName"/>
-        <label for="floating-lastName">Lastname: </label>
-      </div>
+    <div class="form-floating mb-3">
+      <input class="form-control" name="lastName" placeholder="Last Name" Type="text" id="floating-lastName"/>
+      <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">1-20 characters in last name.</p>
+      <label for="floating-lastName">Lastname: </label>
+    </div>
 
     <div class="form-floating mb-3">
       <input class="form-control" name="password" id="floating-password" placeholder="Password" type="password"/>
+      <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password must be 6-20 characters.</p>
       <label for="floating-password">Password: </label>
     </div>
-    <!--<div class="form-floating mb-3">
+
+
+    <div class="form-floating mb-3">
+
+    <div class="form-floating mb-3">
       <input class="form-control" name="retype-password" id="floating-retypePassword" placeholder="Password" type="password"/>
+      <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"  >Retyped password is not the same as above.</p>
       <label for="floating-retypePassword">Retype password: </label>
-    </div>-->
+
+    </div>
+
+
+    </div>
+
     <input type="submit" value="Signup"/>
     </div>
 
