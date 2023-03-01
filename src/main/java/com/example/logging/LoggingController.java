@@ -64,7 +64,11 @@ public class LoggingController {
 //            else{
 //                model.addAttribute("userTimeRegistration", new TimeRegistration());
 //            }
-
+        model.addAttribute("workSum", (int) (user.getEnumSum(TypeRegTime.WORK)));
+        model.addAttribute("paidLeaveSum",(int) (user.getEnumSum(TypeRegTime.PAID_LEAVE)));
+        model.addAttribute("unpaidLeaveSum",(int) (user.getEnumSum(TypeRegTime.UNPAID_LEAVE)));
+        model.addAttribute("sickLeaveSum",(int) (user.getEnumSum(TypeRegTime.SICK_LEAVE)));
+        model.addAttribute("overtimeSum",(int) (user.getEnumSum(TypeRegTime.OVERTIME)));
         model.addAttribute("userTimeRegistration", new TimeRegistration());
         model.addAttribute("TypeRegTime", TypeRegTime.values());
         model.addAttribute("minDate", minDate.toString());

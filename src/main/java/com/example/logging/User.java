@@ -76,10 +76,10 @@ public class User {
     public List<TimeRegistration> createTestArray() {
         List testArray = new ArrayList<>();
         Random random = new Random();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 15; i++) {
             testArray.add(new TimeRegistration(random.nextDouble(7)+1,
-                    TypeRegTime.values()[random.nextInt(4)],
-                    LocalDate.now().plusDays(random.nextInt(30)+1).toString(),"comment"));
+                    TypeRegTime.values()[random.nextInt(5)],
+                    LocalDate.now().plusDays(random.nextInt(30)+1).toString(),""));
         }
         return testArray;
     }
@@ -88,6 +88,9 @@ public class User {
         return userTimeRegistrations;
     }
 
+    public double getEnumSum(TypeRegTime type){
+        return userTimeRegistrations.stream().filter(z->z.getEnumType()==type).mapToDouble(z->z.getTime()).sum();
+    }
     public void sortByDate() {
         userTimeRegistrations.sort(Comparator.comparing(TimeRegistration::getDate));
         System.out.println("Date");

@@ -9,7 +9,7 @@ public class TimeRegistration {
     private static int counter=1;
     private Double time;
     private TypeRegTime enumType;
-    private String date; //sortByDate String-problem fixa?
+    private String date;
     private String comment;
 
     public TimeRegistration(){
