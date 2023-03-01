@@ -94,11 +94,10 @@ public class LoggingController {
         user = new User(username, email, firstName, lastName, password);
         userRepository.addUser(user);
 
-        if(bindingResult.hasErrors()){
-            System.out.println("errors");
-            System.out.println(model.getAttribute("user"));
+        if(bindingResult.hasErrors()){;
             return "signup";
         }
+
 
   
 

@@ -52,9 +52,9 @@
     <div class="form-floating mb-3">
 
     <div class="form-floating mb-3">
-      <input class="form-control" name="retype-password" id="floating-retypePassword" placeholder="Password" type="password"/>
-      <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"  >Retyped password is not the same as above.</p>
-      <label for="floating-retypePassword">Retype password: </label>
+      <input class="form-control" name="confirmPassword" id="floating-confirmPassword" placeholder="Password" type="password"/>
+      <p th:if=" ${password} != ${confirmPassword} && ${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"  >Retyped password is not the same as above.</p>
+      <label for="floating-confirmPassword">Retype password: </label>
 
     </div>
 
