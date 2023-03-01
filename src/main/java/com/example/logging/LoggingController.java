@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class LoggingController {
@@ -87,20 +88,12 @@ public class LoggingController {
     }
 
     @PostMapping("/signup")
-    public String signupPost(@RequestParam String username, @RequestParam String email, @RequestParam String password,
-                             @RequestParam String firstName, @RequestParam String lastName, Model model,HttpSession session,
+    public String signupPost(Model model,HttpSession session,
                              @Valid User user, BindingResult bindingResult) {
+
         model.addAttribute("user",user);
-        user = new User(username, email, firstName, lastName, password);
+        validation(user,bindingResult);
         userRepository.addUser(user);
-
-        if(bindingResult.hasErrors()){;
-            return "signup";
-        }
-
-
-  
-
 
         return "login";
     }
@@ -113,5 +106,16 @@ public class LoggingController {
         cookie.setMaxAge(0);
         res.addCookie(cookie);
         return "login";
+    }
+    public String validation(User user, BindingResult bindingResult){
+
+        if (!user.getConfirmPassword().equals(user.getPassword())) {
+            bindingResult.rejectValue("password", "error","Not the same password.");
+            return "signup";
+        }
+        if(bindingResult.hasErrors()){;
+            return "signup";
+        }
+        return "";
     }
 }

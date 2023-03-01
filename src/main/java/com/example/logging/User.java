@@ -3,9 +3,6 @@ package com.example.logging;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import org.springframework.context.annotation.DependsOn;
-import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.SessionScope;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -20,24 +17,25 @@ public class User {
     @NotEmpty(message=("First name is mandatory."))
     private String firstName;
     @Size(min=1,max=20, message="Must be between 1-20 characters.")
-   @NotEmpty(message=("Last name is mandatory."))
+    @NotEmpty(message=("Last name is mandatory."))
     private String lastName;
     @Size(min=3,max=15,message="Must be between 3-15 characters.")
-   @NotEmpty(message=("Username is mandatory."))
+    @NotEmpty(message=("Username is mandatory."))
     private String username;
-    @Email
-   @NotEmpty(message=("Email is mandatory."))
+    @Email(message="Invalid email.")
+    @NotEmpty(message=("Email is mandatory."))
     private String email;
     @Size(min=6,max=20,message="Password must be between 6-20 characters")
     private String password;
-
-
-
-private String confirmPassword;
+    private String confirmPassword;
 
     private List <TimeRegistration> userTimeRegistrations;
 
-
+    public User() {
+        id=counter;
+        userTimeRegistrations=createTestArray();
+        counter++;
+    }
     public User(String username, String password, String firstname, String lastname) {
         this.username = username;
         this.password = password;
@@ -56,15 +54,6 @@ private String confirmPassword;
         userTimeRegistrations = createTestArray();
         id=counter;
         counter++;
-    }
-
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
     }
 
     public User(String username, String email, String firstName, String lastName, String password, String confirmPassword) {
@@ -93,12 +82,6 @@ private String confirmPassword;
                 '}';
     }
 
-
-    public User() {
-        id=counter;
-        userTimeRegistrations=createTestArray();
-        counter++;
-    }
 
     public List<TimeRegistration> createTestArray() {
         List testArray = new ArrayList<>();
@@ -179,5 +162,12 @@ private String confirmPassword;
 
     public void setPassword(String password) {
         this.password = password;
+    }
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 }
