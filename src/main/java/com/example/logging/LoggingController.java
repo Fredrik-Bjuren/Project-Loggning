@@ -120,6 +120,6 @@ public class LoggingController {
         if(bindingResult.hasErrors()){;
             return "signup";
         }
-        return "";
+        return "login";
     }
 }

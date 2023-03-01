@@ -36,6 +36,12 @@ public class User {
         userTimeRegistrations=createTestArray();
         counter++;
     }
+
+    public User(List<TimeRegistration> times) {
+        userTimeRegistrations=times;
+        id=counter;
+        counter++;
+    }
     public User(String username, String password, String firstname, String lastname) {
         this.username = username;
         this.password = password;
@@ -118,7 +124,6 @@ public class User {
     public void setUserTimeRegistrations(List<TimeRegistration> userTimeRegistrations) {
         this.userTimeRegistrations = userTimeRegistrations;
     }
-
 
     public double getTotalTime(){
         return userTimeRegistrations.stream().mapToDouble(x->x.getTime()).sum();
