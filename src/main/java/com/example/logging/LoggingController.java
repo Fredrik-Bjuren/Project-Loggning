@@ -33,6 +33,9 @@ public class LoggingController {
             if (username.equals(user.getUsername()) && password.equals(user.getPassword())) {
                 session.setAttribute("user", user);
             }
+//            else {
+//                return "login";
+//            }
         }
 
         model.addAttribute("userTimeRegistration", new TimeRegistration());

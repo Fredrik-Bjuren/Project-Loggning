@@ -1,8 +1,5 @@
 package com.example.logging;
 
-import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.SessionScope;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
