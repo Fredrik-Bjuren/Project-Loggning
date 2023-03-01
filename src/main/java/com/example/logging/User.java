@@ -13,10 +13,9 @@ import java.util.Random;
 
 public class User {
     private int id;
-    int counter=1;
+    private static int counter=1;
     @Size(min=1,max=20, message="Must be between 1-20 characters.")
     @NotEmpty(message=("First name is mandatory."))
-    private static int counter=1;
     private String firstName;
     @Size(min=1,max=20, message="Must be between 1-20 characters.")
    @NotEmpty(message=("Last name is mandatory."))

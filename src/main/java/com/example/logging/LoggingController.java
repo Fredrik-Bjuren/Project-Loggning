@@ -88,17 +88,20 @@ public class LoggingController {
 
     @PostMapping("/signup")
     public String signupPost(@RequestParam String username, @RequestParam String email, @RequestParam String password,
-                             @RequestParam String firstName, @RequestParam String lastName, Model model,HttpSession session
+                             @RequestParam String firstName, @RequestParam String lastName, Model model,HttpSession session,
                              @Valid User user, BindingResult bindingResult) {
-        User user = new User(username, email, firstName, lastName, password);
         model.addAttribute("user",user);
+        user = new User(username, email, firstName, lastName, password);
+        userRepository.addUser(user);
 
         if(bindingResult.hasErrors()){
+            System.out.println("errors");
+            System.out.println(model.getAttribute("user"));
             return "signup";
         }
 
   
-        userRepository.addUser(user);
+
 
         return "login";
     }
