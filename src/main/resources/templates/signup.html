@@ -8,6 +8,11 @@
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 <body>
+
+<h1>Sign up</h1>
+<h3>Create your account here!</h3>
+<br>
+
 <form class="row gy-2 gx-3 align-items-center" action="/signup" method="post">
   <div class="col-sm-3">
     <div class="form-floating mb-3">
@@ -34,10 +39,10 @@
       <input class="form-control" name="password" id="floating-password" placeholder="Password" type="password"/>
       <label for="floating-password">Password: </label>
     </div>
-    <div class="form-floating mb-3">
+    <!--<div class="form-floating mb-3">
       <input class="form-control" name="retype-password" id="floating-retypePassword" placeholder="Password" type="password"/>
       <label for="floating-retypePassword">Retype password: </label>
-    </div>
+    </div>-->
     <input type="submit" value="Signup"/>
     </div>
 
@@ -45,7 +50,7 @@
 <br>
 - Dev-data -
 <br>
-[[${@user}]]
+[[${session.user}]]
 </div>
 
 

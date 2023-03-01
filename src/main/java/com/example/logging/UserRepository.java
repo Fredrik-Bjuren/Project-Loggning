@@ -1,9 +1,15 @@
 package com.example.logging;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserRepository {
-    List<User> users;
+    List<User> users = new ArrayList<>();
+
+    public UserRepository() {
+        users.add(new User("MSteen", "banan", "Michelle", "Steenvoorden"));
+        users.add(new User("Fredrik", "apple", "Fredrik", "Bjuren"));
+        }
 
     public void addUser(User user){
         users.add(user);
@@ -17,9 +23,7 @@ public class UserRepository {
         this.users = users;
     }
 
-    public UserRepository(List<User> users) {
-        this.users = users;
-    }
+
 
 
 }
