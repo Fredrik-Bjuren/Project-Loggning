@@ -5,21 +5,18 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
-@Service
-@SessionScope
 public class User {
-    //TODO validation
     private int id;
     int counter=1;
     @Size(min=1,max=20, message="Must be between 1-20 characters.")
     @NotEmpty(message=("First name is mandatory."))
+    private static int counter=1;
     private String firstName;
     @Size(min=1,max=20, message="Must be between 1-20 characters.")
    @NotEmpty(message=("Last name is mandatory."))
@@ -32,9 +29,29 @@ public class User {
     private String email;
     @Size(min=6,max=20,message="Password must be between 6-20 characters")
     private String password;
-
     private List <TimeRegistration> userTimeRegistrations;
 
+
+    public User(String username, String password, String firstname, String lastname) {
+        this.username = username;
+        this.password = password;
+        this.firstName = firstname;
+        this.lastName = lastname;
+        userTimeRegistrations = createTestArray();
+        id=counter;
+        counter++;
+    }
+
+    public User(String username, String email, String firstName, String lastName, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        userTimeRegistrations = createTestArray();
+        id=counter;
+        counter++;
+    }
 
     @Override
     public String toString() {
@@ -57,7 +74,7 @@ public class User {
         counter++;
     }
 
-    private List<TimeRegistration> createTestArray() {
+    public List<TimeRegistration> createTestArray() {
         List testArray = new ArrayList<>();
         Random random = new Random();
         for (int i = 0; i < 10; i++) {

@@ -9,8 +9,12 @@
 </head>
 <body>
 
-<form class="row gy-2 gx-3 align-items-center" action="/signup" method="post" th:object="${user}">
 
+
+<h1>Sign up</h1>
+<h3>Create your account here!</h3>
+<br>
+<form class="row gy-2 gx-3 align-items-center" action="/signup" method="post" th:object="${user}">
   <div class="col-sm-3">
 
     <div class="form-floating mb-3">
@@ -44,10 +48,17 @@
       <label for="floating-password">Password: </label>
     </div>
 
+
+    <div class="form-floating mb-3">
+
     <div class="form-floating mb-3">
       <input class="form-control" name="retype-password" id="floating-retypePassword" placeholder="Password" type="password"/>
       <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}"  >Retyped password is not the same as above.</p>
       <label for="floating-retypePassword">Retype password: </label>
+
+    </div>
+
+
     </div>
 
     <input type="submit" value="Signup"/>
@@ -57,7 +68,7 @@
 <br>
 - Dev-data -
 <br>
-[[${@user}]]
+[[${session.user}]]
 </div>
 
 
