@@ -61,11 +61,13 @@
         <th scope="col"><a href="/home?sort=date"><strong>Date</strong></a></th>
         <th scope="col"><a href="/home?sort=category"><strong>Category</strong></a></th>
         <th scope="col"><a href="/home?sort=time"><strong>Hours</strong></a></th>
+        <th></th>
     </tr>
     <tr th:each="timeReg:${session.user.userTimeRegistrations}">
         <td scope="row" th:text="${timeReg.date}"></td>
         <td th:text="${timeReg.enumType}"></td>
         <td th:text="${timeReg.time}"></td>
+        <td><a href="/home?edit=${timeReg.id}">Edit</a></td>
     </tr>
     <tr>
         <td></td>

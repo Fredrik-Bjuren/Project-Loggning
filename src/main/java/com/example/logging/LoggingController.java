@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.sql.Time;
 import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 public class LoggingController {
@@ -18,7 +21,8 @@ public class LoggingController {
     LocalDate maxDate = LocalDate.now().plusDays(365);
 
     @GetMapping("/")
-    String login() {
+    String login(Model model) {
+        model.addAttribute("users",userRepository.getUsers());
         return "login";
     }
 
@@ -48,6 +52,16 @@ public class LoggingController {
                 default -> user.sortByDate();
             }
         }
+//        for (var timereg:user.getUserTimeRegistrations()) {
+//            if(timereg.getId()==id){
+//                model.addAttribute("userTimeRegistration", timereg);
+//                List <TimeRegistration> newList = user.getUserTimeRegistrations();
+//                newList.remove(timereg);
+//            }
+//            else{
+//                model.addAttribute("userTimeRegistration", new TimeRegistration());
+//            }
+
         model.addAttribute("userTimeRegistration", new TimeRegistration());
         model.addAttribute("TypeRegTime", TypeRegTime.values());
         model.addAttribute("minDate", minDate.toString());

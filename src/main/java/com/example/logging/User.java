@@ -9,7 +9,7 @@ import java.util.Random;
 public class User {
     //TODO validation
     private int id;
-    int counter=1;
+    private static int counter=1;
 
     private String firstName;
 
@@ -26,6 +26,8 @@ public class User {
         this.firstName = firstname;
         this.lastName = lastname;
         userTimeRegistrations = createTestArray();
+        id=counter;
+        counter++;
     }
 
     public User(String username, String email, String firstName, String lastName, String password) {
@@ -35,6 +37,8 @@ public class User {
         this.email = email;
         this.password = password;
         userTimeRegistrations = createTestArray();
+        id=counter;
+        counter++;
     }
 
     @Override
