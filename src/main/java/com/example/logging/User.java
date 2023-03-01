@@ -1,20 +1,15 @@
 package com.example.logging;
 
-import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.SessionScope;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
-@Service
-@SessionScope
 public class User {
     //TODO validation
     private int id;
-    int counter=1;
+    private static int counter=1;
 
     private String firstName;
 
@@ -22,9 +17,29 @@ public class User {
     private String username;
     private String email;
     private String password;
-
     private List <TimeRegistration> userTimeRegistrations;
 
+
+    public User(String username, String password, String firstname, String lastname) {
+        this.username = username;
+        this.password = password;
+        this.firstName = firstname;
+        this.lastName = lastname;
+        userTimeRegistrations = createTestArray();
+        id=counter;
+        counter++;
+    }
+
+    public User(String username, String email, String firstName, String lastName, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        userTimeRegistrations = createTestArray();
+        id=counter;
+        counter++;
+    }
 
     @Override
     public String toString() {
@@ -48,7 +63,7 @@ public class User {
         System.out.println("Denna constructor");
     }
 
-    private List<TimeRegistration> createTestArray() {
+    public List<TimeRegistration> createTestArray() {
         List testArray = new ArrayList<>();
         Random random = new Random();
         for (int i = 0; i < 10; i++) {

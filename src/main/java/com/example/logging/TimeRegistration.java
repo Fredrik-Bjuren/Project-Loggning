@@ -4,6 +4,9 @@ import java.time.LocalDate;
 
 public class TimeRegistration {
 
+    private int id;
+
+    private static int counter=1;
     private Double time;
     private TypeRegTime enumType;
     private String date; //sortByDate String-problem fixa?
@@ -16,12 +19,19 @@ public class TimeRegistration {
         this.time = time;
         this.enumType = enumType;
         this.date = date;
+        id=counter;
+        counter++;
+    }
+
+    public int getId() {
+        return id;
     }
 
     @Override
     public String toString() {
         return "TimeRegistration{" +
-                "time=" + time +
+                "id=" + id +
+                ", time=" + time +
                 ", enumType=" + enumType +
                 ", date='" + date + '\'' +
                 '}';
