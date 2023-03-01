@@ -15,6 +15,8 @@ import java.util.ArrayList;
 @Controller
 public class LoggingController {
 
+    UserRepository userRepository;
+
     @Autowired
     User user;
 
@@ -27,12 +29,9 @@ public class LoggingController {
     }
 
     @PostMapping("/")
-    String postLogin(Model model) {
+    String postLogin(Model model, HttpSession session) {
         model.addAttribute("userTimeRegistration", new TimeRegistration());
-        model.addAttribute("TypeRegTime", TypeRegTime.values());
-        model.addAttribute("minDate", minDate.toString());
-        model.addAttribute("maxDate", maxDate.toString());
-        return "home";
+        return "redirect:/home";
     }
 
 
@@ -55,11 +54,8 @@ public class LoggingController {
     @PostMapping("/home")
     public String registration(HttpSession session, Model model, @ModelAttribute TimeRegistration timeRegistration) {
         user.addTimeRegistration(timeRegistration);
-        model.addAttribute("userTimeRegistration", new TimeRegistration());
-        model.addAttribute("TypeRegTime", TypeRegTime.values());
-        model.addAttribute("minDate", minDate.toString());
-        model.addAttribute("maxDate", maxDate.toString());
-        return "home";
+
+        return "redirect:/home";
     }
 
     @GetMapping("/signup")
