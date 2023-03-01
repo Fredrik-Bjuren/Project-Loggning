@@ -3,15 +3,19 @@ package com.example.logging;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
+
 @Service
 @SessionScope
 public class User {
     //TODO validation
     private int id;
     int counter=1;
+
     private String firstName;
 
     private String lastName;
@@ -37,6 +41,24 @@ public class User {
     }
 
 
+    public User() {
+        id=counter;
+        userTimeRegistrations=createTestArray();
+        counter++;
+        System.out.println("Denna constructor");
+    }
+
+    private List<TimeRegistration> createTestArray() {
+        List testArray = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            testArray.add(new TimeRegistration(random.nextDouble(7)+1,
+                    TypeRegTime.values()[random.nextInt(4)],
+                    LocalDate.now().plusDays(random.nextInt(30)+1).toString() ));
+        }
+        return testArray;
+    }
+
     public List<TimeRegistration> getUserTimeRegistrations() {
         return userTimeRegistrations;
     }
@@ -59,11 +81,6 @@ public class User {
         this.userTimeRegistrations = userTimeRegistrations;
     }
 
-    public User() {
-        id=counter;
-        userTimeRegistrations=new ArrayList<>();
-        counter++;
-    }
 
     public double getTotalTime(){
         return userTimeRegistrations.stream().mapToDouble(x->x.getTime()).sum();
