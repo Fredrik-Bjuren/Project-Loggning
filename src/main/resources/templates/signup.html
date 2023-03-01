@@ -15,32 +15,32 @@
 
     <div class="form-floating mb-3">
       <input class="form-control" th:field="*{username}" id="floating-userName" placeholder="Username" type="text" th:errorclass="error"/>
-      <p th:if="${#fields.hasErrors('username')}">3-15 characters in username.</p>
+      <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">3-15 characters in username.</p>
       <label for="floating-userName">Username: </label>
     </div>
 
     <div class="form-floating mb-3">
       <input class="form-control" name="email" id="floating-email" placeholder="email" type="email"/>
-      <p th:if="${#fields.hasErrors('email')}">Invalid email.</p>
+      <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Invalid email.</p>
       <label for="floating-email">Email: </label>
     </div>
 
     <div class="form-floating mb-3">
       <input class="form-control" name="firstName" id="floating-firstName" placeholder="First Name" Type="text"/>
-      <p th:if="${#fields.hasErrors('firstName')}">1-20 characters in first name.</p>
+      <p th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">1-20 characters in first name.</p>
       <label for="floating-firstName">Firstname: </label>
     </div>
 
 
     <div class="form-floating mb-3">
       <input class="form-control" name="lastName" placeholder="Last Name" Type="text" id="floating-lastName"/>
-      <p th:if="${#fields.hasErrors('lastName')}">1-20 characters in last name.</p>
+      <p th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">1-20 characters in last name.</p>
       <label for="floating-lastName">Lastname: </label>
     </div>
 
     <div class="form-floating mb-3">
       <input class="form-control" name="password" id="floating-password" placeholder="Password" type="password"/>
-      <p th:if="${#fields.hasErrors('password')}">Password must be 6-20 characters.</p>
+      <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password must be 6-20 characters.</p>
       <label for="floating-password">Password: </label>
     </div>
 

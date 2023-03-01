@@ -22,13 +22,13 @@ public class User {
     @NotEmpty(message=("First name is mandatory."))
     private String firstName;
     @Size(min=1,max=20, message="Must be between 1-20 characters.")
-    @NotEmpty(message=("Last name is mandatory."))
+   @NotEmpty(message=("Last name is mandatory."))
     private String lastName;
     @Size(min=3,max=15,message="Must be between 3-15 characters.")
-    @NotEmpty(message=("Username is mandatory."))
+   @NotEmpty(message=("Username is mandatory."))
     private String username;
     @Email
-    @NotEmpty(message=("Email is mandatory."))
+   @NotEmpty(message=("Email is mandatory."))
     private String email;
     @Size(min=6,max=20,message="Password must be between 6-20 characters")
     private String password;

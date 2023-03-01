@@ -61,7 +61,7 @@ public class LoggingController {
     }
 
     @GetMapping("/signup")
-    public String signup(HttpSession session, Model model) {
+    public String signup(HttpSession session, Model model, User user) {
         model.addAttribute("user",user);
         return "signup";
     }
