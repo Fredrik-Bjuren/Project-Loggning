@@ -40,6 +40,16 @@
             <label class="form-label" for="floating-time"> Hours</label>
         </div>
     </div>
+
+    <div class="col-sm-3">
+        <div class="form-floating mb-3">
+            <input class="form-control" placeholder="Comment"
+                   Type="text" id="floating-comment"
+                   th:field="*{comment}"/>
+            <label class="form-label" for="floating-comment"> Comment</label>
+        </div>
+    </div>
+
     </div>
     </div>
     <div class="row">
@@ -56,11 +66,13 @@
         <th scope="col"><a href="/home?sort=date"><strong>Date</strong></a></th>
         <th scope="col"><a href="/home?sort=category"><strong>Category</strong></a></th>
         <th scope="col"><a href="/home?sort=time"><strong>Hours</strong></a></th>
+        <th scope="col"><a href="/home?sort=comment"><strong>Comment</strong></a></th>
     </tr>
     <tr th:each="timeReg:${@user.userTimeRegistrations}">
         <td scope="row" th:text="${timeReg.date}"></td>
         <td th:text="${timeReg.enumType}"></td>
         <td th:text="${timeReg.time}"></td>
+        <td th:text="${timeReg.comment}"></td>
     </tr>
     <tr>
         <td></td>

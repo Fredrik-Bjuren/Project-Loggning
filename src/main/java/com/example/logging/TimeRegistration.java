@@ -7,15 +7,17 @@ public class TimeRegistration {
     private Double time;
     private TypeRegTime enumType;
     private String date; //sortByDate String-problem fixa?
+    private String comment;
 
     public TimeRegistration(){
 
     }
 
-    public TimeRegistration(Double time, TypeRegTime enumType, String date) {
+    public TimeRegistration(Double time, TypeRegTime enumType, String date, String comment) {
         this.time = time;
         this.enumType = enumType;
         this.date = date;
+        this.comment = comment;
     }
 
     @Override
@@ -23,7 +25,7 @@ public class TimeRegistration {
         return "TimeRegistration{" +
                 "time=" + time +
                 ", enumType=" + enumType +
-                ", date='" + date + '\'' +
+                ", date='" + date + ", comment='" + comment + '\'' +
                 '}';
     }
 
@@ -51,5 +53,11 @@ public class TimeRegistration {
         this.date = date;
     }
 
+    public String getComment() {
+        return comment;
+    }
 
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 }

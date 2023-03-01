@@ -1,9 +1,11 @@
 package com.example.logging;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -60,17 +62,27 @@ public class LoggingController {
 
     @GetMapping("/signup")
     public String signup(HttpSession session, Model model) {
+        model.addAttribute("user",user);
         return "signup";
     }
 
     @PostMapping("/signup")
-    public String signupPost(@RequestParam String username, @RequestParam String email,@RequestParam String password, @RequestParam String firstName, @RequestParam String lastName,Model model) {
+    public String signupPost(@RequestParam String username, @RequestParam String email, @RequestParam String password,
+                             @RequestParam String firstName, @RequestParam String lastName, Model model,
+                             @Valid User user, BindingResult bindingResult) {
         user.setUserTimeRegistrations(new ArrayList<>());
         user.setUsername(username);
         user.setEmail(email);
         user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setPassword(password);
+
+        model.addAttribute("user",user);
+
+        if(bindingResult.hasErrors()){
+            return "signup";
+        }
+
         return "login";
     }
 
