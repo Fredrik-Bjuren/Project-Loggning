@@ -27,7 +27,7 @@
         <div class="form-floating mb-3">
             <input class="form-control" placeholder="Date" Type="date" th:attr="min = ${minDate}, max = ${maxDate}"
                    id="floating-date"
-                   th:field="*{date}"/>
+                   th:value="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}" name="date"/>
             <label for="floating-date">Date</label>
         </div>
     </div>
@@ -35,7 +35,7 @@
     <div class="col-sm-3">
         <div class="form-floating mb-3">
             <select class="form-control" id="floating-enumType" aria-label="Time category" th:field="*{enumType}">
-                <option th:each="type:${TypeRegTime} " th:value="${type}" th:text="${type.getName}"></option>
+                <option th:each="type:${TypeRegTime} " th:value="${type}"  th:text="${type.getName}"></option>
             </select>
             <label for="floating-enumType"> Time category: </label>
         </div>
@@ -46,8 +46,9 @@
             <input class="form-control" placeholder="Hours"
                    Type="number" id="floating-time"
                    min="0.1" step="0.1" max="8"
-                   th:field="*{time}"/>
+                   name="time" th:value="0"/>
             <label class="form-label" for="floating-time"> Hours</label>
+            <p th:if="${#fields.hasErrors('time')}" th:errors="*{time}">error message</p>
         </div>
     </div>
 
@@ -67,7 +68,6 @@
     </div>
 
 </form>
-
 
 <table class="table table-hover" th:if="${session.user.userTimeRegistrations != null}">
     <tr>
@@ -91,15 +91,7 @@
     </tr>
 </table>
 <br>
-
 <div id="chart_div"></div>
-
-
-<br>
-- Dev-data -
-<br>
-[[${session.user}]]
-</div>
 <script src="../../../../node_modules/typed.js/lib/typed.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 <script>
@@ -119,7 +111,7 @@ var typed = new Typed('.typed', options);
 
 
 </script>
-    <script>
+<script>
 
         // Load the Visualization API and the corechart package.
         google.charts.load('current', {'packages':['corechart']});
@@ -156,7 +148,7 @@ var typed = new Typed('.typed', options);
 
         }
 
-    </script>
+</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
