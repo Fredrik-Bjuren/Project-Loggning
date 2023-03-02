@@ -47,8 +47,10 @@ public class LoggingController {
 
 
     @GetMapping("/home")
-    public String home(@RequestParam(required = false) String sort, Model model, HttpSession session) {
+    public String home(@RequestParam(required = false) String sort, Model model,
+                       HttpSession session, TimeRegistration timeRegistration) {
         User user = (User) session.getAttribute("user");
+        model.addAttribute("timeRegistration",timeRegistration);
         if (sort != null) {
             switch (sort) {
                 case "category" -> user.sortByCategory();
@@ -56,7 +58,9 @@ public class LoggingController {
                 default -> user.sortByDate();
             }
         }
-//        for (var timereg:user.getUserTimeRegistrations()) {
+        modelGeneration(model,user,new TimeRegistration());
+        return "home";
+        //        for (var timereg:user.getUserTimeRegistrations()) {
 //            if(timereg.getId()==id){
 //                model.addAttribute("userTimeRegistration", timereg);
 //                List <TimeRegistration> newList = user.getUserTimeRegistrations();
@@ -65,23 +69,22 @@ public class LoggingController {
 //            else{
 //                model.addAttribute("userTimeRegistration", new TimeRegistration());
 //            }
-        model.addAttribute("workSum", (int) (user.getEnumSum(TypeRegTime.WORK)));
-        model.addAttribute("paidLeaveSum",(int) (user.getEnumSum(TypeRegTime.PAID_LEAVE)));
-        model.addAttribute("unpaidLeaveSum",(int) (user.getEnumSum(TypeRegTime.UNPAID_LEAVE)));
-        model.addAttribute("sickLeaveSum",(int) (user.getEnumSum(TypeRegTime.SICK_LEAVE)));
-        model.addAttribute("overtimeSum",(int) (user.getEnumSum(TypeRegTime.OVERTIME)));
-        model.addAttribute("userTimeRegistration", new TimeRegistration());
-        model.addAttribute("TypeRegTime", TypeRegTime.values());
-        model.addAttribute("minDate", minDate.toString());
-        model.addAttribute("maxDate", maxDate.toString());
-        return "home";
+
     }
 
     @PostMapping("/home")
-    public String registration(HttpSession session, Model model, @ModelAttribute TimeRegistration timeRegistration) {
+    public String registration(HttpSession session, Model model, @Valid TimeRegistration timeRegistration,
+                               BindingResult br) {
         User user = (User) session.getAttribute("user");
-        user.addTimeRegistration(timeRegistration);
+        model.addAttribute("timeRegistration",timeRegistration);
+        homeValidation(timeRegistration,br,model,user);
 
+        if(br.hasErrors()) {
+            System.out.println("Br has errors");
+            modelGeneration(model,user,timeRegistration);
+           return "home";
+        }
+        user.addTimeRegistration(timeRegistration);
         return "redirect:/home";
     }
 
@@ -96,7 +99,7 @@ public class LoggingController {
                              @Valid User user, BindingResult bindingResult) {
 
         model.addAttribute("user",user);
-        String valid = validation(user,bindingResult);
+        String valid = signupValidation(user,bindingResult);
         userRepository.addUser(user);
 
         return valid;
@@ -111,7 +114,7 @@ public class LoggingController {
         res.addCookie(cookie);
         return "login";
     }
-    public String validation(User user, BindingResult bindingResult){
+    public String signupValidation(User user, BindingResult bindingResult){
 
         if (!user.getConfirmPassword().equals(user.getPassword())) {
             bindingResult.rejectValue("password", "error","Not the same password.");
@@ -122,4 +125,28 @@ public class LoggingController {
         }
         return "login";
     }
+    public void homeValidation(TimeRegistration tr, BindingResult bindingResult, Model model, User user) {
+
+        System.out.println("Enter homeValidation");
+        if(tr.getTime() == null) {
+            System.out.println("Time = null");
+            bindingResult.rejectValue("time","error","Please enter time.");
+        }
+        else if(tr.getDate().isEmpty()) {
+            System.out.println("Date is empty");
+           bindingResult.rejectValue("date","error","Please enter date.");
+        }
+    }
+    public void modelGeneration(Model model, User user, TimeRegistration timeRegistration) {
+        model.addAttribute("workSum", (int) (user.getEnumSum(TypeRegTime.WORK)));
+        model.addAttribute("paidLeaveSum",(int) (user.getEnumSum(TypeRegTime.PAID_LEAVE)));
+        model.addAttribute("unpaidLeaveSum",(int) (user.getEnumSum(TypeRegTime.UNPAID_LEAVE)));
+        model.addAttribute("sickLeaveSum",(int) (user.getEnumSum(TypeRegTime.SICK_LEAVE)));
+        model.addAttribute("overtimeSum",(int) (user.getEnumSum(TypeRegTime.OVERTIME)));
+        model.addAttribute("timeRegistration", timeRegistration);
+        model.addAttribute("TypeRegTime", TypeRegTime.values());
+        model.addAttribute("minDate", minDate.toString());
+        model.addAttribute("maxDate", maxDate.toString());
+    }
+
 }

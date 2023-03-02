@@ -1,5 +1,8 @@
 package com.example.logging;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDate;
 
 public class TimeRegistration {
@@ -7,8 +10,10 @@ public class TimeRegistration {
     private int id;
 
     private static int counter=1;
+    //@NotNull(message="Enter a time.")
     private Double time;
     private TypeRegTime enumType;
+    //@NotEmpty(message="Enter a date.")
     private String date;
     private String comment;
 
@@ -38,7 +43,6 @@ public class TimeRegistration {
                 ", date='" + date + ", comment='" + comment + '\'' +
                 '}';
     }
-
     public Double getTime() {
         return time;
     }

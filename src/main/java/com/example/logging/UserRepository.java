@@ -16,6 +16,7 @@ public class UserRepository {
     public UserRepository() {
         users.add(new User("MSteen", "banan", "Michelle", "Steenvoorden"));
         users.add(new User("Fredrik", "apple", "Fredrik", "Bjuren"));
+        users.add(new User("apelsin", "apelsin", "Beorn", "the Beowulf"));
         }
 
     public void addUser(User user){
