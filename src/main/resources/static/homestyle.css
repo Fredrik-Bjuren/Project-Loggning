@@ -4,16 +4,15 @@
   box-sizing: border-box;
   font-family: sans-serif;
 }
-body{
-  background-color: red;
-}
 header {
   text-align: center;
   padding-top: 30px;
   padding-bottom: 30px;
 }
 
-
+table{
+  margin-top: 50px;
+}
 a:link,
 a:visited {
   color: black;
@@ -35,6 +34,8 @@ a:hover {
 
 .introname{
   padding-bottom: 30px;
+  text-shadow: red;
+  
 }
 
 .timeform{
@@ -42,8 +43,10 @@ a:hover {
 }
 
 .container{
+  background-image: url("background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
   width: 80%;
-  background: #78a6fe;
   border-radius: 10px;
 }
 

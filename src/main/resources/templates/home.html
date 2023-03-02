@@ -39,7 +39,7 @@
                     <select class="form-control" id="floating-enumType" aria-label="Time category" th:field="*{enumType}">
                         <option th:each="type:${TypeRegTime} " th:value="${type}"  th:text="${type.getName}"></option>
                     </select>
-                    <label for="floating-enumType"> Time category: </label>
+                    <label for="floating-enumType"> Time category </label>
                 </div>
             </div>
 
@@ -91,6 +91,8 @@
         <td></td>
         <td></td>
         <td><strong><i>[[${'Total: ' +#numbers.formatDecimal(session.user.getTotalTime(),0,2)}]]</i></strong></td>
+        <td></td>
+        <td></td>
     </tr>
 </table>
 <br>
