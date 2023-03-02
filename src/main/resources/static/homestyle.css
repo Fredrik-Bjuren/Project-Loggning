@@ -4,11 +4,15 @@
   box-sizing: border-box;
   font-family: sans-serif;
 }
-
-h1 {
-  background: white;
+header {
+  text-align: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
+table{
+  margin-top: 50px;
+}
 a:link,
 a:visited {
   color: black;
@@ -23,7 +27,35 @@ a:hover {
   color: grey;
 }
 .brand {
-  background: white;
+
   color: #680747;
   font-size: 60px;
+}
+
+.introname{
+  padding-bottom: 30px;
+  text-shadow: red;
+  
+}
+
+.timeform{
+  padding-bottom: 60px;
+}
+
+.container{
+  background-image: url("background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 80%;
+  border-radius: 10px;
+}
+
+.submit {
+  background-color: #ffd98e;
+  border-radius: 10px;
+  border: #ffd98e;
+  color: black;
+  padding: 0.7em;
+  cursor: pointer;
+  width: 100px;
 }
