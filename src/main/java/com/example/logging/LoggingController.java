@@ -96,10 +96,10 @@ public class LoggingController {
                              @Valid User user, BindingResult bindingResult) {
 
         model.addAttribute("user",user);
-        String valid = validation(user,bindingResult);
+        validation(user,bindingResult);
         userRepository.addUser(user);
 
-        return valid;
+        return "login";
     }
 
     @PostMapping("/logout")
@@ -120,6 +120,6 @@ public class LoggingController {
         if(bindingResult.hasErrors()){;
             return "signup";
         }
-        return "login";
+        return "";
     }
 }
