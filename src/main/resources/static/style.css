@@ -1,13 +1,94 @@
-a:link, a:visited {
-color:black;
-text-decoration: none;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  background-image: url("background.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+h1 {
+  background: white;
+  padding-bottom: 30px;
+  text-align: center;
+}
+a:link,
+a:visited {
+  color: black;
+  text-decoration: none;
+}
+
+u {
+  background: white;
 }
 
 a:active {
-color:grey;
+  color: grey;
 }
 
 a:hover {
-color:grey;
+  color: grey;
+}
 
+body,
+input,
+button,
+label {
+  font-family: Arial;
+}
+
+input {
+  background: grey;
+  width: 250px;
+  display: grid;
+  justify-content: center;
+}
+
+.form-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.submit {
+  background-color: #ffd98e;
+  border-radius: 10px;
+  border: #ffd98e;
+  color: black;
+  padding: 0.7em;
+  cursor: pointer;
+  width: 100px;
+}
+
+.brand {
+  color: #680747;
+  font-size: 60px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  margin-top: 3em;
+}
+
+.box {
+  padding: 80px 20px;
+  text-align: center;
+  background-color: white;
+  width: 350px;
+  box-shadow: 0px 0px 5px 0px #888888;
+}
+
+.timereg {
+  width: 600px;
+}
+
+.signup {
+  font-size: 10px;
+  background: white;
+  padding-top: 40px;
 }
