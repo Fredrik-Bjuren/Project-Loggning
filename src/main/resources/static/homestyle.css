@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+h1 {
+  background: white;
+}
+
+a:link,
+a:visited {
+  color: black;
+  text-decoration: none;
+}
+
+a:active {
+  color: grey;
+}
+
+a:hover {
+  color: grey;
+}
+.brand {
+  background: white;
+  color: #680747;
+  font-size: 60px;
+}
