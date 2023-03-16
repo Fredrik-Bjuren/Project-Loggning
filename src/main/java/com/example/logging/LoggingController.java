@@ -31,7 +31,7 @@ public class LoggingController {
     @GetMapping("/")
     String loadLogin() {
         /*model.addAttribute("users", service.getUsers());*/
-
+        service.createTestArray();
         return "login";
     }
 
@@ -69,7 +69,7 @@ public class LoggingController {
         return "home";
     }
 
-  /*  @PostMapping("/home")
+  @PostMapping("/home")
     public String registration(HttpSession session, Model model, @Valid TimeRegistration timeRegistration,
                                BindingResult br) {
         User user = (User) session.getAttribute("user");
@@ -81,28 +81,28 @@ public class LoggingController {
             modelGeneration(model,user,timeRegistration);
            return "home";
         }
-        service.save(timeRegistration);
+        service.saveTime(timeRegistration);
         return "redirect:/home";
-    }*/
+    }
 
     @GetMapping("/signup")
-    public String signup(HttpSession session, Model model, User user) {
-        model.addAttribute("user",user);
+    public String loadSignup(Model model) {
+        model.addAttribute("user",new User());
         return "signup";
     }
 
-   /* @PostMapping("/signup")
-    public String signupPost(Model model,HttpSession session,
-                             @Valid User user, BindingResult bindingResult, @RequestParam String cPassword) {
+   @PostMapping("/signup")
+    public String submitSignupPost(Model model,HttpSession session,
+                             @Valid User user, BindingResult bindingResult, @RequestParam String repeatPassword) {
 
         model.addAttribute("user",user);
 
-        String valid = signupValidation(user,bindingResult,cPassword);
+        String valid = signupValidation(user,bindingResult,repeatPassword);
 
-        service.save(user);
+        service.addUser(user);
 
         return valid;
-    }*/
+    }
 
     @PostMapping("/logout")
     public String logout(HttpSession session, HttpServletResponse res) {
@@ -113,9 +113,9 @@ public class LoggingController {
         res.addCookie(cookie);
         return "login";
     }
-    public String signupValidation(User user, BindingResult bindingResult,String cPassword){
+    public String signupValidation(User user, BindingResult bindingResult,String repeatPassword){
 
-        if (!cPassword.equals(user.getPassword())) {
+        if (!repeatPassword.equals(user.getPassword())) {
             bindingResult.rejectValue("password", "error","Not the same password.");
             return "signup";
         }
@@ -127,6 +127,7 @@ public class LoggingController {
     public void homeValidation(TimeRegistration tr, BindingResult bindingResult, Model model, User user) {
 
         System.out.println("Enter homeValidation");
+
         if(tr.getTime() == 0) {
             System.out.println("Time = null");
             bindingResult.rejectValue("time","error","Please enter time.");
@@ -134,7 +135,7 @@ public class LoggingController {
         if(tr.getDate() == null) {
             System.out.println("Date is empty");
            bindingResult.rejectValue("date","error","Please enter date.");
-        }
+        }*/
     }
     public void modelGeneration(Model model, User user, TimeRegistration timeRegistration) {
 /*        model.addAttribute("workSum", (int) (user.getEnumSum(TypeRegTime.WORK)));
