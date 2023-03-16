@@ -1,7 +1,6 @@
 package com.example.logging;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -9,7 +8,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
-
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,6 +23,11 @@ public class LoggingService {
     return (List<User>) userRepository.findAll();
     }
 
+
+    public List<TimeRegistration> getUserTimeRegistrations(Integer userId) {
+       return  (List<TimeRegistration>) trRepository.findByUserId(userId);
+    }
+
     public User addUser(User user) {
         return userRepository.save(user);
     }
@@ -34,7 +37,7 @@ public class LoggingService {
     }
 
 
-   
+  
 
 
 /*    public void setUserTimeRegistrations(List<TimeRegistration> userTimeRegistrations) {
