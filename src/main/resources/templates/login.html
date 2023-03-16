@@ -17,6 +17,11 @@
       <article class="box">
         <h1>Welcome to <span class="brand">Loggs</span></h1>
 
+        <div th:if="${messageLoginFailed}" class="alert alert-danger" role="alert" text-center>
+          [[${messageLoginFailed}]]
+
+        </div>
+
         <form class="form-center" action="/" method="post">
           <div class="form-floating mb-3">
             <input
