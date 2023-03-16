@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.sql.Time;
 import java.time.LocalDate;
@@ -28,20 +30,23 @@ public class LoggingController {
     @GetMapping("/")
     String loadLogin() {
         /*model.addAttribute("users", service.getUsers());*/
+
         return "login";
     }
 
     @PostMapping("/")
-    String postLogin(Model model, HttpSession session, @RequestParam String username, @RequestParam String password) {
+    public RedirectView postLogin(Model model, HttpSession session, @RequestParam String username, @RequestParam String password, RedirectAttributes ra) {
+        RedirectView rvHome = new RedirectView("/home", true);
+        RedirectView rvLogin = new RedirectView("/", true);
         for (var user : service.getUsers()) {
            if (username.equals(user.getUsername()) && password.equals(user.getPassword())) {
                 session.setAttribute("user", user);
-                System.out.println(user);
-               model.addAttribute("userTimeRegistration", new TimeRegistration());
-               return "redirect:/home";
+               model.addAttribute("userTimeRegistration", new TimeRegistration()); //Do we need this here??
+               return rvHome;
             }
         }
-        return "login";
+        ra.addFlashAttribute("messageLoginFailed", "Login failed, please try again.");
+        return rvLogin;
 
     }
 
