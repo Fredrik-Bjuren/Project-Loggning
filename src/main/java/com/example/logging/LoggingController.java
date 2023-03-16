@@ -16,6 +16,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.sql.Time;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -41,7 +42,8 @@ public class LoggingController {
         for (var user : service.getUsers()) {
            if (username.equals(user.getUsername()) && password.equals(user.getPassword())) {
                 session.setAttribute("user", user);
-               model.addAttribute("userTimeRegistration", new TimeRegistration()); //Do we need this here??
+                session.setAttribute("userTimeRegistrations",service.getUserTimeRegistrations(user.getId()));
+//               model.addAttribute("userTimeRegistration", new TimeRegistration()); //Do we need this here??
                return rvHome;
             }
         }
@@ -125,7 +127,7 @@ public class LoggingController {
     public void homeValidation(TimeRegistration tr, BindingResult bindingResult, Model model, User user) {
 
         System.out.println("Enter homeValidation");
-        if(tr.getTime() == null) {
+        if(tr.getTime() == 0) {
             System.out.println("Time = null");
             bindingResult.rejectValue("time","error","Please enter time.");
         }

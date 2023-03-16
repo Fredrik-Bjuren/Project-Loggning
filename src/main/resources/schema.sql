@@ -7,22 +7,16 @@ CREATE TABLE USER (
   password varchar(20)
 );
 
-CREATE TABLE TypeofTime (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  type varchar(30)
-);
 
-CREATE TABLE TimeRegistration (
+CREATE TABLE Time_Registration (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user_id int,
   date timestamp,
-  time timestamp,
-  type_id int,
-  comments varchar(150),
-  createdAt timestamp,
-  UpdatedAt timestamp,
-    FOREIGN KEY (type_id)
-      REFERENCES TypeofTime(id),
+  time numeric,
+  type_of_time varchar(20),
+  comment varchar(150),
+  created timestamp,
+  updated timestamp,
     FOREIGN KEY (user_id)
       REFERENCES USER(id)
 );

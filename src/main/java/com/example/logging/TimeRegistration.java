@@ -1,45 +1,54 @@
 package com.example.logging;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.EnumMap;
 
 @Entity
 public class TimeRegistration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    private int userId;
     private LocalDate date;
-    private LocalDate time;
-    private int type_id;
+    private double time;
+    private String typeOfTime;
     private String comment;
-    private LocalDate createdAt;
-    private LocalDate updatedAt;
+
+    private LocalDate created;
+    private LocalDate updated;
 
     public TimeRegistration() {
     }
 
-    public TimeRegistration(int id, LocalDate date, LocalDate time, int type_id, String comment, LocalDate createdAt, LocalDate updatedAt) {
+    public TimeRegistration(Integer id, int userId, LocalDate date, double time, String typeOfTime, String comment, LocalDate created, LocalDate updated) {
         this.id = id;
+        this.userId = userId;
         this.date = date;
         this.time = time;
-        this.type_id = type_id;
+        this.typeOfTime = typeOfTime;
         this.comment = comment;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+        this.created = created;
+        this.updated = updated;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
 
     public LocalDate getDate() {
         return date;
@@ -49,20 +58,20 @@ public class TimeRegistration {
         this.date = date;
     }
 
-    public LocalDate getTime() {
+    public double getTime() {
         return time;
     }
 
-    public void setTime(LocalDate time) {
+    public void setTime(double time) {
         this.time = time;
     }
 
-    public int getType_id() {
-        return type_id;
+    public String getTypeOfTime() {
+        return typeOfTime;
     }
 
-    public void setType_id(int type_id) {
-        this.type_id = type_id;
+    public void setTypeOfTime(String typeOfTime) {
+        this.typeOfTime = typeOfTime;
     }
 
     public String getComment() {
@@ -73,19 +82,19 @@ public class TimeRegistration {
         this.comment = comment;
     }
 
-    public LocalDate getCreatedAt() {
-        return createdAt;
+    public LocalDate getCreated() {
+        return created;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
-        this.createdAt = createdAt;
+    public void setCreated(LocalDate created) {
+        this.created = created;
     }
 
-    public LocalDate getUpdatedAt() {
-        return updatedAt;
+    public LocalDate getUpdated() {
+        return updated;
     }
 
-    public void setUpdatedAt(LocalDate updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setUpdated(LocalDate updated) {
+        this.updated = updated;
     }
 }

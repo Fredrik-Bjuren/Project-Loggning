@@ -15,7 +15,6 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    //private static int counter=1; obsolete?
     @Size(min=1,max=20, message="Must be between 1-20 characters.")
     @NotEmpty(message=("First name is mandatory."))
     private String firstName;
@@ -31,16 +30,11 @@ public class User {
     private String email;
     @Size(min=6,max=20,message="Password must be between 6-20 characters")
     private String password;
-    // private String confirmPassword;
 
-    // private List <TimeRegistration> userTimeRegistrations;
 
     public User() {
     }
 
-    public User(List<TimeRegistration> times) {
-        //userTimeRegistrations=times;
-    }
     public User(String username, String password, String firstname, String lastname) {
         this.username = username;
         this.password = password;
@@ -68,6 +62,10 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public String getFirstName() {

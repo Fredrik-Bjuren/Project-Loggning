@@ -2,6 +2,8 @@ package com.example.logging;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -18,6 +20,12 @@ public class LoggingService {
     public List<User> getUsers(){
     return (List<User>) userRepository.findAll();
     }
+
+    public List<TimeRegistration> getUserTimeRegistrations(Integer userId) {
+       return  (List<TimeRegistration>) trRepository.findByUserId(userId);
+    }
+
+
 
 /*    public void setUserTimeRegistrations(List<TimeRegistration> userTimeRegistrations) {
         this.userTimeRegistrations = userTimeRegistrations;
