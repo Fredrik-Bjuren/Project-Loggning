@@ -2,7 +2,13 @@ package com.example.logging;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -47,14 +53,23 @@ public class LoggingService {
 //        System.out.println("Category");
 //    }
 
-/*    public List<TimeRegistration> createTestArray() {
-        List testArray = new ArrayList<>();
+public List<TimeRegistration> createTestArray() {
+        List<TimeRegistration> testArray = new ArrayList<>();
         Random random = new Random();
         for (int i = 0; i < 15; i++) {
-            testArray.add(new TimeRegistration(random.nextDouble(7)+1,
-                    TypeOfTime.values()[random.nextInt(5)],
-                    LocalDate.now().plusDays(random.nextInt(30)+1).toString(),""));
+            testArray.add(new TimeRegistration(
+                    random.nextInt(7)+1,
+                    LocalDate.now().plusDays(random.nextInt(30)+1),
+                    random.nextDouble(7)+1,
+                    "Paid Leave",
+                    "Comment",
+                    LocalDateTime.now().plusDays(random.nextInt(30)+1).plusHours((long) (random.nextDouble(3.67)+1)),
+                    LocalDateTime.now().plusDays(random.nextInt(30)+1).plusHours((long) (random.nextDouble(4.43)+1))));
         }
+    String listString = testArray.stream().map(Object::toString)
+            .collect(Collectors.joining(", "));
+    System.out.println("This is listString: " + listString);
         return testArray;
-    }*/
+    }
+
 }

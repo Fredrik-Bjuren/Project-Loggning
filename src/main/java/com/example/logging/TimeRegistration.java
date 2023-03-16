@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.EnumMap;
 
 @Entity
@@ -13,32 +14,47 @@ public class TimeRegistration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private Integer user_id;
     private LocalDate date;
-    private LocalDate time;
-    private int type_id;
+    private Double time;
+    private String typeOfWork;
     private String comment;
-    private LocalDate createdAt;
-    private LocalDate updatedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     public TimeRegistration() {
     }
 
-    public TimeRegistration(int id, LocalDate date, LocalDate time, int type_id, String comment, LocalDate createdAt, LocalDate updatedAt) {
+    public TimeRegistration(Integer id, Integer user_id, LocalDate date, Double time, String typeOfWork, String comment, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
+        this.user_id = user_id;
         this.date = date;
         this.time = time;
-        this.type_id = type_id;
+        this.typeOfWork = typeOfWork;
         this.comment = comment;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
 
-    public int getId() {
-        return id;
+    public TimeRegistration(Integer user_id, LocalDate date, Double time, String typeOfWork, String comment, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.user_id = user_id;
+        this.date = date;
+        this.time = time;
+        this.typeOfWork = typeOfWork;
+        this.comment = comment;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    @Override
+    public String toString() {
+        return "(" + user_id +
+                ", '" + date + '\'' +
+                ", " + time +
+                ", '" + typeOfWork + '\'' +
+                ", '" + comment + '\'' +
+                ", '" + createdAt + '\'' +
+                ", '" + updatedAt + '\'' + ')';
     }
 
     public LocalDate getDate() {
@@ -49,20 +65,36 @@ public class TimeRegistration {
         this.date = date;
     }
 
-    public LocalDate getTime() {
+    public Double getTime() {
         return time;
     }
 
-    public void setTime(LocalDate time) {
+    public void setTime(Double time) {
         this.time = time;
     }
 
-    public int getType_id() {
-        return type_id;
+    public Integer getId() {
+        return id;
     }
 
-    public void setType_id(int type_id) {
-        this.type_id = type_id;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getTypeOfWork() {
+        return typeOfWork;
+    }
+
+    public void setTypeOfWork(String typeOfWork) {
+        this.typeOfWork = typeOfWork;
     }
 
     public String getComment() {
@@ -73,19 +105,19 @@ public class TimeRegistration {
         this.comment = comment;
     }
 
-    public LocalDate getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDate createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDate getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDate updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 }
