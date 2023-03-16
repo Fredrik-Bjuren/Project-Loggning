@@ -135,7 +135,7 @@ public class LoggingController {
         if(tr.getDate() == null) {
             System.out.println("Date is empty");
            bindingResult.rejectValue("date","error","Please enter date.");
-        }*/
+        }
     }
     public void modelGeneration(Model model, User user, TimeRegistration timeRegistration) {
 /*        model.addAttribute("workSum", (int) (user.getEnumSum(TypeRegTime.WORK)));

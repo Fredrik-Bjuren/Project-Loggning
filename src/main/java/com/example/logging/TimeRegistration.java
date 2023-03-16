@@ -11,10 +11,11 @@ public class TimeRegistration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer user_id;
+    private Integer userId;
     private LocalDate date;
     private Double time;
     private String typeOfTime;
+
     private String comment;
     private LocalDateTime created;
     private LocalDateTime updated;
@@ -23,7 +24,8 @@ public class TimeRegistration {
     public TimeRegistration() {
     }
 
-    public TimeRegistration(Integer id, Integer userId, LocalDate date, double time, String typeOfTime, String comment, LocalDate created, LocalDate updated) {
+    public TimeRegistration(Integer id, Integer userId, LocalDate date, double time, String typeOfTime, String comment,
+                            LocalDateTime created, LocalDateTime updated) {
         this.id = id;
         this.userId = userId;
         this.date = date;
@@ -34,8 +36,9 @@ public class TimeRegistration {
         this.updated = updated;
     }
 
-    public TimeRegistration(Integer user_id, LocalDate date, Double time, String typeOfTime, String comment, LocalDateTime created, LocalDateTime updated) {
-        this.user_id = user_id;
+    public TimeRegistration(Integer userId, LocalDate date, Double time, String typeOfTime, String comment,
+                            LocalDateTime created, LocalDateTime updated) {
+        this.userId = userId;
         this.date = date;
         this.time = time;
         this.typeOfTime = typeOfTime;
@@ -43,17 +46,18 @@ public class TimeRegistration {
         this.created = created;
         this.updated = updated;
     }
-    
-     @Override
+
+    @Override
     public String toString() {
-        return "(" + user_id +
+        return "(" + userId +
                 ", '" + date + '\'' +
                 ", " + time +
-                ", '" + typeOfWork + '\'' +
+                ", '" + typeOfTime + '\'' +
                 ", '" + comment + '\'' +
-                ", '" + createdAt + '\'' +
-                ", '" + updatedAt + '\'' + ')';
-    
+                ", '" + created + '\'' +
+                ", '" + updated + '\'' + ')';
+    }
+
     public Integer getId() {
         return id;
     }
@@ -62,15 +66,13 @@ public class TimeRegistration {
         this.id = id;
     }
 
-
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
-
 
     public LocalDate getDate() {
         return date;
@@ -79,7 +81,7 @@ public class TimeRegistration {
     public void setDate(LocalDate date) {
         this.date = date;
     }
-    
+
     public Double getTime() {
         return time;
     }
@@ -94,15 +96,6 @@ public class TimeRegistration {
 
     public void setTypeOfTime(String typeOfTime) {
         this.typeOfTime = typeOfTime;
-  
-
-
-    public Integer getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
     }
 
     public String getComment() {
@@ -113,20 +106,19 @@ public class TimeRegistration {
         this.comment = comment;
     }
 
-
-    public LocalDate getCreated() {
+    public LocalDateTime getCreated() {
         return created;
     }
 
-    public void setCreated(LocalDate created) {
+    public void setCreated(LocalDateTime created) {
         this.created = created;
     }
 
-    public LocalDate getUpdated() {
+    public LocalDateTime getUpdated() {
         return updated;
     }
 
-    public void setUpdated(LocalDate updated) {
+    public void setUpdated(LocalDateTime updated) {
         this.updated = updated;
     }
 }
