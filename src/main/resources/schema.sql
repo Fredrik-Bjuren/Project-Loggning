@@ -16,13 +16,11 @@ CREATE TABLE TimeRegistration (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user_id int,
   date timestamp,
-  time timestamp,
-  type_id int,
+  time double,
+  typeOfWork varchar(50),
   comments varchar(150),
   createdAt timestamp,
   UpdatedAt timestamp,
-    FOREIGN KEY (type_id)
-      REFERENCES TypeofTime(id),
     FOREIGN KEY (user_id)
       REFERENCES USER(id)
 );

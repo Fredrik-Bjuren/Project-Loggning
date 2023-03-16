@@ -30,7 +30,7 @@ public class LoggingController {
     @GetMapping("/")
     String loadLogin() {
         /*model.addAttribute("users", service.getUsers());*/
-
+        service.createTestArray();
         return "login";
     }
 
@@ -125,14 +125,14 @@ public class LoggingController {
     public void homeValidation(TimeRegistration tr, BindingResult bindingResult, Model model, User user) {
 
         System.out.println("Enter homeValidation");
-        if(tr.getTime() == null) {
+/*        if(tr.getTime() == null) {
             System.out.println("Time = null");
             bindingResult.rejectValue("time","error","Please enter time.");
         }
         if(tr.getDate() == null) {
             System.out.println("Date is empty");
            bindingResult.rejectValue("date","error","Please enter date.");
-        }
+        }*/
     }
     public void modelGeneration(Model model, User user, TimeRegistration timeRegistration) {
 /*        model.addAttribute("workSum", (int) (user.getEnumSum(TypeRegTime.WORK)));
