@@ -52,12 +52,12 @@
                 <label for="floating-password">Password </label>
             </div>
 
-            <div class="form-floating mb-3">
-                <input class="form-control" th:field="*{confirmPassword}" id="floating-confirmPassword"
+           <div class="form-floating mb-3">
+                <input class="form-control" th:field="*{repeatPassword}" id="floating-repeatPassword"
                        placeholder="Password" type="password"/>
-                <p th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">Retyped password is
+                <p th:if="${#fields.hasErrors('repeatPassword')}" th:errors="*{repeatPassword}">Retyped password is
                     not the same as above.</p>
-                <label for="floating-confirmPassword">Confirm password </label>
+                    <label for="floating-repeatPassword">Confirm password </label>
 
             </div>
 

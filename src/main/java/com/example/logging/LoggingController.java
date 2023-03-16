@@ -67,7 +67,7 @@ public class LoggingController {
         return "home";
     }
 
-  /*  @PostMapping("/home")
+  @PostMapping("/home")
     public String registration(HttpSession session, Model model, @Valid TimeRegistration timeRegistration,
                                BindingResult br) {
         User user = (User) session.getAttribute("user");
@@ -79,28 +79,28 @@ public class LoggingController {
             modelGeneration(model,user,timeRegistration);
            return "home";
         }
-        service.save(timeRegistration);
+        service.saveTime(timeRegistration);
         return "redirect:/home";
-    }*/
+    }
 
     @GetMapping("/signup")
-    public String signup(HttpSession session, Model model, User user) {
-        model.addAttribute("user",user);
+    public String loadSignup(Model model) {
+        model.addAttribute("user",new User());
         return "signup";
     }
 
-   /* @PostMapping("/signup")
-    public String signupPost(Model model,HttpSession session,
-                             @Valid User user, BindingResult bindingResult, @RequestParam String cPassword) {
+   @PostMapping("/signup")
+    public String submitSignupPost(Model model,HttpSession session,
+                             @Valid User user, BindingResult bindingResult, @RequestParam String repeatPassword) {
 
         model.addAttribute("user",user);
 
-        String valid = signupValidation(user,bindingResult,cPassword);
+        String valid = signupValidation(user,bindingResult,repeatPassword);
 
-        service.save(user);
+        service.addUser(user);
 
         return valid;
-    }*/
+    }
 
     @PostMapping("/logout")
     public String logout(HttpSession session, HttpServletResponse res) {
@@ -111,9 +111,9 @@ public class LoggingController {
         res.addCookie(cookie);
         return "login";
     }
-    public String signupValidation(User user, BindingResult bindingResult,String cPassword){
+    public String signupValidation(User user, BindingResult bindingResult,String repeatPassword){
 
-        if (!cPassword.equals(user.getPassword())) {
+        if (!repeatPassword.equals(user.getPassword())) {
             bindingResult.rejectValue("password", "error","Not the same password.");
             return "signup";
         }

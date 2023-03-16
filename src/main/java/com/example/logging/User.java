@@ -29,9 +29,14 @@ public class User {
     @Email(message="Invalid email.")
     @NotEmpty(message=("Email is mandatory."))
     private String email;
+
+
     @Size(min=6,max=20,message="Password must be between 6-20 characters")
     private String password;
-    // private String confirmPassword;
+
+    @Transient
+    private String repeatPassword;
+
 
     // private List <TimeRegistration> userTimeRegistrations;
 
@@ -108,5 +113,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRepeatPassword() {
+        return repeatPassword;
+    }
+
+    public void setRepeatPassword(String repeatPassword) {
+        this.repeatPassword = repeatPassword;
     }
 }

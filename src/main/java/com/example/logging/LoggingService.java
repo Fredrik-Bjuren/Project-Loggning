@@ -19,6 +19,18 @@ public class LoggingService {
     return (List<User>) userRepository.findAll();
     }
 
+    public User addUser(User user) {
+        return userRepository.save(user);
+    }
+
+    public TimeRegistration saveTime(TimeRegistration timeRegistration) {
+        return trRepository.save(timeRegistration);
+    }
+
+
+   
+
+
 /*    public void setUserTimeRegistrations(List<TimeRegistration> userTimeRegistrations) {
         this.userTimeRegistrations = userTimeRegistrations;
     }
