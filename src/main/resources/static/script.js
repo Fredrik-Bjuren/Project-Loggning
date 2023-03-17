@@ -1,10 +1,11 @@
-const setDataModal = (id) => {
-var link = document.getElementById("hrefdata");
-link.href = "/home?id="+id;
+const setDataModal = (id,created,updated) => {
+document.getElementById("regId").innerText = id;
+document.getElementById("created").innerText = created;
+document.getElementById("updated").innerText = updated;
+document.getElementById("hrefdata").href = "/home?id="+id;
 }
 
-
-$('#modalDetailTimeReg').modal(options)
+$('#modalDetailTimeReg').modal("hide")
 
             //sum Table Time Total
             var table = document.getElementById("table")
@@ -16,7 +17,8 @@ $('#modalDetailTimeReg').modal(options)
             var sumOvertime = 0;
 
             for(var i = 1; i < table.rows.length; i++){
-                var sumRow= parseInt(table.rows[i].cells[1].innerText);
+                var sumRow= parseFloat(table.rows[i].cells[1].innerText);
+                console.log(sumRow);
                 sumTime = sumTime + sumRow;
                 switch(table.rows[i].cells[2].innerText){
 
@@ -42,7 +44,7 @@ $('#modalDetailTimeReg').modal(options)
                 }
             }
 
-            document.getElementById("sumTime").innerText = "Time Total: " + sumTime;
+            document.getElementById("sumTime").innerText = "Time Total: " + sumTime.toFixed(2);
 
 
 

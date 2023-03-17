@@ -69,8 +69,7 @@
                     <label class="form-label" for="floating-comment"> Comment</label>
                 </div>
             </div>
-            <input type="hidden" th:field="*{userId}" value="[[${session.user.userId}]]">
-
+            <input type="hidden" th:field="*{id}">
             <div class="row">
                 <div class="col-sm-5">
                     <input class="submit" Type="submit"/>
@@ -97,49 +96,64 @@
         <th scope="col" onclick="sortTable(2)"><strong>Category</strong></th>
         <th scope="col" onclick="sortTable(3)"><strong>Comment</strong></th>
         <th hidden></th>
+        <th hidden></th>
     </tr>
-    <tr th:each="timeReg:${session.userTimeRegistrations}" th:onclick="setDataModal([[${timeReg.id}]])" data-toggle="modal"  data-target="#modalDetailTimeReg" >
-        <td th:text="${timeReg.date}"></td>
-        <td th:text="${#numbers.formatDecimal(timeReg.time,0,2)}"></td>
-        <td th:text="${timeReg.typeOfTime}"></td>
-        <td th:text="${timeReg.comment}"></td>
-         </tr>
+    <div th:each="timeReg:${session.userTimeRegistrations}">
+        <tr th:onclick="setDataModal([[${timeReg.id}]],[[${timeReg.created}]],[[${timeReg.updated}]])"
+            data-toggle="modal" data-target="#modalDetailTimeReg">
+            <td th:text="${timeReg.date}"></td>
+            <td th:text="${#numbers.formatDecimal(timeReg.time,1,2,'POINT')}"></td>
+            <td th:text="${timeReg.typeOfTime}"></td>
+            <td th:text="${timeReg.comment}"></td>
+            <td hidden th:text="${timeReg.created}"></td>
+            <td hidden th:text="${timeReg.updated}"></td>
+        </tr>
+    </div>
 
 </table>
 <table class="table table-hover" th:if="${session.userTimeRegistrations != null}">
     <tr>
-        <th hidden scope="col"><a href="/home?sort=date"><strong>Date</strong></a></th>
-        <th scope="col"><a href="/home?sort=time"><strong><i id="sumTime">Hours</i></strong></a></th>
-        <th hidden scope="col"><a href="/home?sort=category"><strong>Category</strong></a></th>
-        <th hidden scope="col"><a href="/home?sort=comment"><strong>Comment</strong></a></th>
-        <th hidden></th>
+        <th scope="col"><strong><i id="sumTime">Hours</i></strong></th>
     </tr>
 </table>
 
 <!-- Modal -->
-<div class="modal fade" id="modalDetailTimeReg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
+<div class="modal fade" id="modalDetailTimeReg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="false">
     <div class="modal-dialog" role="document">
 
         <!-- Modal Content -->
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Details</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                Hello!!
+                <table>
+                    <tr>
+                        <th>Registration-ID</th>
+                        <th>Created</th>
+                        <th>Updated</th>
+                    </tr>
+                    <tr>
+                        <td id="regId">Registration-ID</td>
+                        <td id="created">Created</td>
+                        <td id="updated">Updated</td>
+                    </tr>
+                </table>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <a id="hrefdata"><button type="button" class="btn btn-info">Edit</button></a>
+                <a id="hrefdata">
+                    <button type="button" class="btn btn-info">Edit</button>
+                </a>
                 <button type="button" class="btn btn-danger">Delete</button>
             </div>
         </div>
     </div>
 </div>
-
 
 
 <br>
@@ -164,6 +178,8 @@ startDelay: 1000,
 };
 
 var typed = new Typed('.typed', options);
+
+
 
 
 </script>

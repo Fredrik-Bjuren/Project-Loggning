@@ -12,7 +12,7 @@ CREATE TABLE Time_Registration (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user_id int NOT NULL,
   date date NOT NULL,
-  time numeric NOT NULL,
+  time decimal (3,2) NOT NULL,
   type_of_time varchar(20) NOT NULL,
   comment varchar(150),
   created timestamp default (CURTIME()),

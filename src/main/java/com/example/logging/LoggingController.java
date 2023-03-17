@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Controller
 public class LoggingController {
     @Autowired
@@ -77,6 +80,12 @@ public class LoggingController {
             return rvHome;
         }
         timeRegistration.setUserId(user.getId());
+
+        if(timeRegistration.getCreated()==null) {
+            timeRegistration.setCreated(LocalDateTime.now());
+        } else {
+            timeRegistration.setUpdated(LocalDateTime.now());
+        }
         service.saveTime(timeRegistration);
 
         ra.addFlashAttribute("SuccesTimeReg", "We have received your input. An overview can be retrieved below");
