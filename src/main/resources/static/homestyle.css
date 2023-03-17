@@ -9,10 +9,14 @@ header {
   padding-top: 30px;
   padding-bottom: 30px;
 }
+table th{
+  cursor: pointer;
+}
 
 table{
   margin-top: 50px;
 }
+
 a:link,
 a:visited {
   color: black;
