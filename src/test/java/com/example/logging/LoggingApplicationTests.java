@@ -4,6 +4,7 @@ package com.example.logging;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.PropertyEditorRegistry;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
@@ -11,6 +12,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 
 import java.beans.PropertyEditor;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -206,10 +209,51 @@ class LoggingApplicationTests {
 			return null;
 		}
 	};
+	@Autowired
+	LoggingService service;
+	@Autowired
+	UserRepository userRepo;
+	@Autowired
+	TimeRegistrationRepository timeRegRepo;
 
 	@Test
 	void contextLoads() {
 	}
+	@Test
+	void signupValidationTest() {
+		User user = new User("Gustav","Green","MrGreen","hej@hej.se","green123","green123");
+		User user2 = new User("Beorn","Blue","MrBlue","hej@hej.se","blue123","red123");
+		Assertions.assertEquals("login",service.signupValidation(user,br,user.getRepeatPassword()));
+		Assertions.assertEquals("signup",service.signupValidation(user2,br,user2.getRepeatPassword()));
+	}
+	@Test
+	void homeValidationTest() {
+		TimeRegistration tr = new TimeRegistration(LocalDate.now(),0.0);
+		TimeRegistration tr2 = new TimeRegistration(null, 2.5);
+		TimeRegistration tr3 = new TimeRegistration(LocalDate.now(), 3.5);
+		Assertions.assertEquals("Invalid time",service.homeValidation(tr,br));
+		Assertions.assertEquals("Empty date",service.homeValidation(tr2,br));
+		Assertions.assertEquals("Passed homeValidation",service.homeValidation(tr3, br));
+	}
+	@Test
+	void addUserTest() {
+		User user = new User("Gustav","Green","MrGreen","hej@hej.se","green123","green123");
+		long urCount = userRepo.count();
+		service.addUser(user);
+		Assertions.assertEquals(userRepo.count(),urCount+1);
+		Assertions.assertEquals(user.toString(),service.getUsers().get((int) userRepo.count()-1).toString());
+		userRepo.delete(user);
+		Assertions.assertEquals(userRepo.count(),urCount);
+	}
+	@Test
+	void timeRegistrationTest() {
+		TimeRegistration tr = new TimeRegistration(3,LocalDate.now(),2.5,"Paid leave",
+				"kommentarHej", LocalDateTime.of(2023,3,15,10,45),LocalDateTime.now());
+		long trCount = timeRegRepo.count();
+		service.saveTime(tr);
+		Assertions.assertEquals(timeRegRepo.count(),trCount+1);
+	}
+
 /*	@Test
 	void confirmPasswordTest() {
 		// pw & cPw = same -> expect login

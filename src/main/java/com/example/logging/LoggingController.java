@@ -65,7 +65,6 @@ public class LoggingController {
   @PostMapping("/home")
     public String registration(HttpSession session, Model model, @Valid TimeRegistration timeRegistration,
                                BindingResult br) {
-
         User user = (User) session.getAttribute("user");
         service.homeValidation(timeRegistration,br);
 
@@ -74,7 +73,6 @@ public class LoggingController {
             service.modelGeneration(model);
            return "home";
         }
-
         timeRegistration.setUserId(user.getId());
         service.saveTime(timeRegistration);
         return "redirect:/home";
@@ -88,9 +86,6 @@ public class LoggingController {
 
    @PostMapping("/signup")
     public String submitSignupPost(@Valid User user, BindingResult bindingResult, @RequestParam String repeatPassword) {
-
-        service.addUser(user);
-
         return service.signupValidation(user,bindingResult,repeatPassword);
     }
 

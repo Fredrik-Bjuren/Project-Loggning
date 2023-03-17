@@ -21,6 +21,13 @@ public class TimeRegistration {
 
 
     public TimeRegistration() {
+        time = 0.0;
+    }
+
+    public TimeRegistration(LocalDate date, Double time) {
+        // constructor for homeValidationTest
+        this.date = date;
+        this.time = time;
     }
 
     public TimeRegistration(Integer id, Integer userId, LocalDate date, double time, String typeOfTime, String comment,

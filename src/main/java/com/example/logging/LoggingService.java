@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -39,6 +38,7 @@ public class LoggingService {
     public TimeRegistration saveTime(TimeRegistration timeRegistration) {
         return trRepository.save(timeRegistration);
     }
+
     public String signupValidation(User user, BindingResult bindingResult, String repeatPassword){
 
         if (!repeatPassword.equals(user.getPassword())) {
@@ -48,18 +48,22 @@ public class LoggingService {
         if(bindingResult.hasErrors()){;
             return "signup";
         }
+        addUser(user);
         return "login";
     }
-    public void homeValidation(TimeRegistration tr, BindingResult bindingResult) {
+    public String homeValidation(TimeRegistration tr, BindingResult bindingResult) {
 
         if(tr.getTime() == 0) {
             System.out.println("Time = null");
             bindingResult.rejectValue("time","error","Please enter time.");
+            return "Invalid time";
         }
         if(tr.getDate() == null) {
             System.out.println("Date is empty");
             bindingResult.rejectValue("date","error","Please enter date.");
+            return "Empty date";
         }
+        return "Passed homeValidation";
     }
     public Model modelGeneration(Model model) {
         model.addAttribute("timeRegistration", new TimeRegistration());
