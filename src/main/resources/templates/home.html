@@ -44,7 +44,8 @@
                 <div class="form-floating mb-3">
                     <select class="form-control" id="floating-enumType" aria-label="Time category"
                             th:field="*{TypeOfTime}">
-                        <option th:each="type : ${TypeOfTime} " th:value="${type.getName}" th:text="${type.getName}"></option>
+                        <option th:each="type : ${TypeOfTime} " th:value="${type.getName}"
+                                th:text="${type.getName}"></option>
                     </select>
                     <label for="floating-enumType"> Time category: </label>
                 </div>
@@ -78,7 +79,17 @@
 
         </form>
     </div>
+    <div th:if="${SuccesTimeReg}" class="alert alert-success" role="success" text-center>
+        [[${SuccesTimeReg}]]
+
+    </div>
+
+    <br>
+    <br>
+
 </div>
+
+
 <table id="table" class="table" th:if="${session.userTimeRegistrations != null}">
     <tr>
         <th scope="col" onclick="sortTable(0)"><strong>Date</strong></th>
@@ -123,6 +134,7 @@ startDelay: 1000,
 };
 
 var typed = new Typed('.typed', options);
+
 
 
 
