@@ -48,6 +48,7 @@ public class LoggingService {
         if(bindingResult.hasErrors()){;
             return "signup";
         }
+        addUser(user);
         return "login";
     }
     public void homeValidation(TimeRegistration tr, BindingResult bindingResult) {
