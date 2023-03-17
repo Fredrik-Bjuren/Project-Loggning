@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 
 @Service
 public class LoggingService {
@@ -17,6 +19,8 @@ public class LoggingService {
     UserRepository userRepository;
     @Autowired
     TimeRegistrationRepository trRepository;
+    LocalDate minDate = LocalDate.now().minusDays(30);
+    LocalDate maxDate = LocalDate.now().plusDays(365);
 
 
     public List<User> getUsers(){
@@ -35,7 +39,35 @@ public class LoggingService {
     public TimeRegistration saveTime(TimeRegistration timeRegistration) {
         return trRepository.save(timeRegistration);
     }
+    public String signupValidation(User user, BindingResult bindingResult, String repeatPassword){
 
+        if (!repeatPassword.equals(user.getPassword())) {
+            bindingResult.rejectValue("password", "error","Not the same password.");
+            return "signup";
+        }
+        if(bindingResult.hasErrors()){;
+            return "signup";
+        }
+        return "login";
+    }
+    public void homeValidation(TimeRegistration tr, BindingResult bindingResult) {
+
+        if(tr.getTime() == 0) {
+            System.out.println("Time = null");
+            bindingResult.rejectValue("time","error","Please enter time.");
+        }
+        if(tr.getDate() == null) {
+            System.out.println("Date is empty");
+            bindingResult.rejectValue("date","error","Please enter date.");
+        }
+    }
+    public Model modelGeneration(Model model) {
+        model.addAttribute("timeRegistration", new TimeRegistration());
+        model.addAttribute("TypeOfTime", TypeOfTime.values());
+        model.addAttribute("minDate", minDate.toString());
+        model.addAttribute("maxDate", maxDate.toString());
+        return model;
+    }
 
   
 

@@ -25,8 +25,7 @@ public class LoggingController {
     @Autowired
     LoggingService service;
 
-    LocalDate minDate = LocalDate.now().minusDays(30);
-    LocalDate maxDate = LocalDate.now().plusDays(365);
+
 
     @GetMapping("/")
     String loadLogin() {
@@ -54,18 +53,11 @@ public class LoggingController {
 
 
     @GetMapping("/home")
-    public String home(@RequestParam(required = false) String sort, Model model,
+    public String home(Model model,
                        HttpSession session, TimeRegistration timeRegistration) {
         User user = (User) session.getAttribute("user");
-        model.addAttribute("timeRegistration",timeRegistration);
-/*        if (sort != null) {
-            switch (sort) {
-                case "category" -> user.sortByCategory();
-                case "time" -> user.sortByHours();
-                default -> user.sortByDate();
-            }
-        }*/
-        modelGeneration(model,user,new TimeRegistration());
+
+        service.modelGeneration((model));
         session.setAttribute("userTimeRegistrations",service.getUserTimeRegistrations(user.getId()));
         return "home";
     }
@@ -73,20 +65,18 @@ public class LoggingController {
   @PostMapping("/home")
     public String registration(HttpSession session, Model model, @Valid TimeRegistration timeRegistration,
                                BindingResult br) {
+
         User user = (User) session.getAttribute("user");
-        model.addAttribute("timeRegistration",timeRegistration);
-        homeValidation(timeRegistration,br,model,user);
+        service.homeValidation(timeRegistration,br);
 
         if(br.hasErrors()) {
             System.out.println("Br has errors");
-            modelGeneration(model,user,timeRegistration);
+            service.modelGeneration(model);
            return "home";
         }
-        System.out.println(timeRegistration);
-        timeRegistration.setUserId(user.getId());
-        System.out.println(timeRegistration);
-        service.saveTime(timeRegistration);
 
+        timeRegistration.setUserId(user.getId());
+        service.saveTime(timeRegistration);
         return "redirect:/home";
     }
 
@@ -97,16 +87,11 @@ public class LoggingController {
     }
 
    @PostMapping("/signup")
-    public String submitSignupPost(Model model,HttpSession session,
-                             @Valid User user, BindingResult bindingResult, @RequestParam String repeatPassword) {
-
-        model.addAttribute("user",user);
-
-        String valid = signupValidation(user,bindingResult,repeatPassword);
+    public String submitSignupPost(@Valid User user, BindingResult bindingResult, @RequestParam String repeatPassword) {
 
         service.addUser(user);
 
-        return valid;
+        return service.signupValidation(user,bindingResult,repeatPassword);
     }
 
     @PostMapping("/logout")
@@ -117,39 +102,6 @@ public class LoggingController {
         cookie.setMaxAge(0);
         res.addCookie(cookie);
         return "login";
-    }
-    public String signupValidation(User user, BindingResult bindingResult,String repeatPassword){
-
-        if (!repeatPassword.equals(user.getPassword())) {
-            bindingResult.rejectValue("password", "error","Not the same password.");
-            return "signup";
-        }
-        if(bindingResult.hasErrors()){;
-            return "signup";
-        }
-        return "login";
-    }
-    public void homeValidation(TimeRegistration tr, BindingResult bindingResult, Model model, User user) {
-
-        if(tr.getTime() == 0) {
-            System.out.println("Time = null");
-            bindingResult.rejectValue("time","error","Please enter time.");
-        }
-        if(tr.getDate() == null) {
-            System.out.println("Date is empty");
-           bindingResult.rejectValue("date","error","Please enter date.");
-        }
-    }
-    public void modelGeneration(Model model, User user, TimeRegistration timeRegistration) {
-/*        model.addAttribute("workSum", (int) (user.getEnumSum(TypeRegTime.WORK)));
-        model.addAttribute("paidLeaveSum",(int) (user.getEnumSum(TypeRegTime.PAID_LEAVE)));
-        model.addAttribute("unpaidLeaveSum",(int) (user.getEnumSum(TypeRegTime.UNPAID_LEAVE)));
-        model.addAttribute("sickLeaveSum",(int) (user.getEnumSum(TypeRegTime.SICK_LEAVE)));
-        model.addAttribute("overtimeSum",(int) (user.getEnumSum(TypeRegTime.OVERTIME)));*/
-        model.addAttribute("timeRegistration", timeRegistration);
-        model.addAttribute("TypeOfTime", TypeOfTime.values());
-        model.addAttribute("minDate", minDate.toString());
-        model.addAttribute("maxDate", maxDate.toString());
     }
 
 }
