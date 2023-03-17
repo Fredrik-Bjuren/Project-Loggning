@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -54,10 +55,10 @@ public class LoggingController {
     }
 
     @GetMapping("/home")
-    public String loadTimReg(Model model, HttpSession session, TimeRegistration timeRegistration) {
+    public String loadTimReg(@RequestParam(required = false) String id, Model model, HttpSession session, TimeRegistration timeRegistration) {
         User user = (User) session.getAttribute("user");
 
-        service.modelGeneration((model));
+        service.modelGeneration(model,id != null?service.getTimeRegistrationById(Integer.valueOf(id)):new TimeRegistration());
         session.setAttribute("userTimeRegistrations", service.getUserTimeRegistrations(user.getId()));
         return "home";
     }
@@ -71,7 +72,7 @@ public class LoggingController {
 
         if (br.hasErrors()) {
             System.out.println("Br has errors");
-            service.modelGeneration(model);
+            service.modelGeneration(model,new TimeRegistration());
             return rvHome;
         }
 

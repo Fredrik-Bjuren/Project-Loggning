@@ -31,7 +31,7 @@
 
             <div class="col-sm-3">
                 <div class="form-floating mb-3">
-                    <input class="form-control" placeholder="Date" Type="date"
+                    <input class="form-control" placeholder="Date" Type="date" format="yyyy-mm-dd"
                            th:attr="min = ${minDate}, max = ${maxDate}"
                            id="floating-date" th:field="*{date}" th:errorclass="error"/>
                     <p th:if="${#fields.hasErrors('date')}" th:errors="*{date}">&nbsp</p>
@@ -99,11 +99,11 @@
         <th hidden></th>
     </tr>
     <tr th:each="timeReg:${session.userTimeRegistrations}">
-        <td scope="row" th:text="${timeReg.date}"></td>
+        <td th:text="${timeReg.date}"></td>
         <td th:text="${#numbers.formatDecimal(timeReg.time,0,2)}"></td>
         <td th:text="${timeReg.typeOfTime}"></td>
         <td th:text="${timeReg.comment}"></td>
-        <td><a href="/home/?edit=${timeReg.id}">Edit</a></td>
+        <td><a th:href="@{/home(id=${timeReg.id})}">Edit</a></td>
     </tr>
 </table>
 <table class="table table-hover" th:if="${session.userTimeRegistrations != null}">
