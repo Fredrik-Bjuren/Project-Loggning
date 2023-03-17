@@ -21,6 +21,7 @@ public class TimeRegistration {
 
 
     public TimeRegistration() {
+        time = 0.0;
     }
 
     public TimeRegistration(Integer id, Integer userId, LocalDate date, double time, String typeOfTime, String comment,

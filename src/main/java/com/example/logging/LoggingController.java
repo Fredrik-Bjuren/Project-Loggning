@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-
 @Controller
 public class LoggingController {
     @Autowired
@@ -27,7 +26,8 @@ public class LoggingController {
     }
 
     @PostMapping("/")
-    public RedirectView postLogin(@RequestParam String username, @RequestParam String password, Model model, HttpSession session, RedirectAttributes ra) {
+    public RedirectView postLogin(Model model, HttpSession session, @RequestParam String username,
+                                  @RequestParam String password, RedirectAttributes ra) {
         RedirectView rvHome = new RedirectView("/home", true);
         RedirectView rvLogin = new RedirectView("/", true);
         for (var user : service.getUsers()) {
@@ -42,10 +42,19 @@ public class LoggingController {
 
     }
 
+    @GetMapping("/signup")
+    public String loadSignup(Model model) {
+        model.addAttribute("user", new User());
+        return "signup";
+    }
+
+    @PostMapping("/signup")
+    public RedirectView submitSignupPost(@Valid User user, BindingResult bindingResult, @RequestParam String repeatPassword, RedirectAttributes ra) {
+        return service.signupValidation(user, bindingResult, repeatPassword, ra);
+    }
 
     @GetMapping("/home")
-    public String home(Model model,
-                       HttpSession session, TimeRegistration timeRegistration) {
+    public String loadTimReg(Model model, HttpSession session, TimeRegistration timeRegistration) {
         User user = (User) session.getAttribute("user");
 
         service.modelGeneration((model));
@@ -54,34 +63,25 @@ public class LoggingController {
     }
 
     @PostMapping("/home")
-    public String registration(HttpSession session, Model model, @Valid TimeRegistration timeRegistration,
-                               BindingResult br) {
-
+    public RedirectView PostTimeReg(HttpSession session, Model model, @Valid TimeRegistration timeRegistration,
+                              BindingResult br, RedirectAttributes ra) {
+        RedirectView rvHome = new RedirectView("/home", true);
         User user = (User) session.getAttribute("user");
         service.homeValidation(timeRegistration, br);
 
         if (br.hasErrors()) {
             System.out.println("Br has errors");
             service.modelGeneration(model);
-            return "home";
+            return rvHome;
         }
 
         timeRegistration.setUserId(user.getId());
         service.saveTime(timeRegistration);
-        return "redirect:/home";
+        ra.addFlashAttribute("SuccesTimeReg", "We have received your input. An overview can be retrieved below");
+        return rvHome;
     }
-
-    @GetMapping("/signup")
-    public String loadSignup(Model model) {
-        model.addAttribute("user", new User());
-        return "signup";
-    }
-
-    @PostMapping("/signup")
-    public String submitSignupPost(@Valid User user, BindingResult bindingResult, @RequestParam String repeatPassword) {
-
-        return service.signupValidation(user, bindingResult, repeatPassword);
-    }
+    
+    //Edit & Delete funktions
 
     @PostMapping("/logout")
     public String logout(HttpSession session, HttpServletResponse res) {
