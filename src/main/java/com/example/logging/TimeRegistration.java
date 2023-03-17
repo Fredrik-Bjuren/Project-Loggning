@@ -15,7 +15,6 @@ public class TimeRegistration {
     private LocalDate date;
     private Double time;
     private String typeOfTime;
-
     private String comment;
     private LocalDateTime created;
     private LocalDateTime updated;

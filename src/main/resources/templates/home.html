@@ -43,8 +43,8 @@
             <div class="col-sm-3">
                 <div class="form-floating mb-3">
                     <select class="form-control" id="floating-enumType" aria-label="Time category"
-                            th:field="${TypeOfTime}">
-                        <option th:each="type:${TypeOfTime} " th:value="${type}" th:text="${type.getName}"></option>
+                            th:field="*{TypeOfTime}">
+                        <option th:each="type : ${TypeOfTime} " th:value="${type.getName}" th:text="${type.getName}"></option>
                     </select>
                     <label for="floating-enumType"> Time category: </label>
                 </div>
@@ -68,6 +68,7 @@
                     <label class="form-label" for="floating-comment"> Comment</label>
                 </div>
             </div>
+            <input type="hidden" th:field="*{userId}" value="[[${session.user.userId}]]">
 
             <div class="row">
                 <div class="col-sm-5">
