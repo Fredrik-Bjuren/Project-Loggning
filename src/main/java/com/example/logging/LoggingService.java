@@ -3,12 +3,10 @@ package com.example.logging;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -34,7 +32,7 @@ public class LoggingService {
 
 
     public List<TimeRegistration> getUserTimeRegistrations(Integer userId) {
-        return (List<TimeRegistration>) trRepository.findByUserId(userId);
+        return (List<TimeRegistration>) trRepository.findByUserId(userId).orElse(new ArrayList<>());
     }
 
     public User addUser(User user) {
@@ -77,8 +75,8 @@ public class LoggingService {
         }
     }
 
-    public Model modelGeneration(Model model) {
-        model.addAttribute("timeRegistration", new TimeRegistration());
+    public Model modelGeneration(Model model, TimeRegistration timeRegistration) {
+        model.addAttribute("timeRegistration", timeRegistration);
         model.addAttribute("TypeOfTime", TypeOfTime.values());
         model.addAttribute("minDate", minDate.toString());
         model.addAttribute("maxDate", maxDate.toString());
@@ -101,4 +99,8 @@ public class LoggingService {
         return testArray;
     }
 
+    public TimeRegistration getTimeRegistrationById(Integer id) {
+
+        return (TimeRegistration) trRepository.findById(id).orElse(new TimeRegistration());
+    }
 }

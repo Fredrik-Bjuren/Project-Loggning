@@ -20,6 +20,7 @@ public class TimeRegistration {
     private LocalDateTime updated;
 
 
+
     public TimeRegistration() {
         time = 0.0;
     }

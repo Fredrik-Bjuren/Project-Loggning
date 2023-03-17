@@ -1,6 +1,7 @@
 
 $('#modalDetailTimeReg').modal(options)
 
+
             //sum Table Time Total
             var table = document.getElementById("table")
             var sumTime = 0;
