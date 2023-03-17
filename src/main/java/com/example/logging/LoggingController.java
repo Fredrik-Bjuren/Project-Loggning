@@ -22,7 +22,7 @@ public class LoggingController {
 
     @GetMapping("/")
     String loadLogin() {
-      return "login";
+        return "login";
     }
 
     @PostMapping("/")
@@ -34,7 +34,6 @@ public class LoggingController {
             if (username.equals(user.getUsername()) && password.equals(user.getPassword())) {
                 session.setAttribute("user", user);
                 session.setAttribute("userTimeRegistrations", service.getUserTimeRegistrations(user.getId()));
-//               model.addAttribute("userTimeRegistration", new TimeRegistration()); //Do we need this here??
                 return rvHome;
             }
         }
@@ -67,7 +66,6 @@ public class LoggingController {
     public RedirectView PostTimeReg(HttpSession session, Model model, @Valid TimeRegistration timeRegistration,
                               BindingResult br, RedirectAttributes ra) {
         RedirectView rvHome = new RedirectView("/home", true);
-
         User user = (User) session.getAttribute("user");
         service.homeValidation(timeRegistration, br);
 
@@ -82,7 +80,8 @@ public class LoggingController {
         ra.addFlashAttribute("SuccesTimeReg", "We have received your input. An overview can be retrieved below");
         return rvHome;
     }
-
+    
+    //Edit & Delete funktions
 
     @PostMapping("/logout")
     public String logout(HttpSession session, HttpServletResponse res) {

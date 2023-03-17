@@ -85,38 +85,7 @@ public class LoggingService {
         return model;
     }
 
-  
-
-
-/*    public void setUserTimeRegistrations(List<TimeRegistration> userTimeRegistrations) {
-        this.userTimeRegistrations = userTimeRegistrations;
-    }
-
-    public double getTotalTime(){
-        return userTimeRegistrations.stream().mapToDouble(x->x.getTime()).sum();
-    }
-    public void addTimeRegistration(TimeRegistration timeRegistration){
-        userTimeRegistrations.add(timeRegistration);
-    }*/
-    /*    public double getEnumSum(TypeRegTime type){
-        return userTimeRegistrations.stream().filter(z->z.getEnumType()==type).mapToDouble(z->z.getTime()).sum();
-    }*/
-//    public void sortByDate() {
-//        userTimeRegistrations.sort(Comparator.comparing(TimeRegistration::getDate));
-//        System.out.println("Date");
-//    }
-//
-//    public void sortByHours() {
-//        userTimeRegistrations.sort(Comparator.comparing(TimeRegistration::getTime));
-//        System.out.println("Hours");
-//    }
-//
-//    public void sortByCategory() {
-//        userTimeRegistrations.sort(Comparator.comparing(TimeRegistration::getEnumType));
-//        System.out.println("Category");
-//    }
-
-    public List<TimeRegistration> createTestArray() {
+     public List<TimeRegistration> createTestArray() {
         List<TimeRegistration> testArray = new ArrayList<>();
         Random random = new Random();
         for (int i = 0; i < 15; i++) {
