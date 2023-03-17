@@ -81,11 +81,11 @@
 </div>
 <table id="table" class="table" th:if="${session.userTimeRegistrations != null}">
     <tr>
-        <th><strong onclick="sortTable(0)">Date</strong></th>
+        <th scope="col" onclick="sortTable(0)"><strong>Date</strong></th>
         <th scope="col" onclick="sortTable(1)"><strong>Hours</strong></th>
         <th scope="col" onclick="sortTable(2)"><strong>Category</strong></th>
         <th scope="col" onclick="sortTable(3)"><strong>Comment</strong></th>
-        <th></th>
+        <th hidden></th>
     </tr>
     <tr th:each="timeReg:${session.userTimeRegistrations}">
         <td scope="row" th:text="${timeReg.date}"></td>
