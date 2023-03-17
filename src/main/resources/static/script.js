@@ -1,6 +1,10 @@
+const setDataModal = (id) => {
+var link = document.getElementById("hrefdata");
+link.href = "/home?id="+id;
+}
+
 
 $('#modalDetailTimeReg').modal(options)
-
 
             //sum Table Time Total
             var table = document.getElementById("table")

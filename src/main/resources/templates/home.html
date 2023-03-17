@@ -98,8 +98,8 @@
         <th scope="col" onclick="sortTable(3)"><strong>Comment</strong></th>
         <th hidden></th>
     </tr>
-    <tr th:each="timeReg:${session.userTimeRegistrations}" data-toggle="modal"  data-target="#modalDetailTimeReg" >
-        <td scope="row" th:text="${timeReg.date}"></td>
+    <tr th:each="timeReg:${session.userTimeRegistrations}" th:onclick="setDataModal([[${timeReg.id}]])" data-toggle="modal"  data-target="#modalDetailTimeReg" >
+        <td th:text="${timeReg.date}"></td>
         <td th:text="${#numbers.formatDecimal(timeReg.time,0,2)}"></td>
         <td th:text="${timeReg.typeOfTime}"></td>
         <td th:text="${timeReg.comment}"></td>
@@ -133,7 +133,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-info">Edit</button>
+                <a id="hrefdata"><button type="button" class="btn btn-info">Edit</button></a>
                 <button type="button" class="btn btn-danger">Delete</button>
             </div>
         </div>
