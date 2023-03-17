@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
 import java.util.*;
+
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -54,25 +56,25 @@ public class LoggingService {
         if (bindingResult.hasErrors()) {;
             ra.addFlashAttribute("FailedSignup", "Something went wrong, please try again.");
             return rvSignUp;
-        }
+        } 
 
         addUser(user);
         ra.addFlashAttribute("SuccesSignup", "Your registration is confirmed.");
         return rvLogin;
     }
 
-
-
-    public void homeValidation(TimeRegistration tr, BindingResult bindingResult) {
-
+  public String homeValidation(TimeRegistration tr, BindingResult bindingResult) {
         if (tr.getTime() == 0) {
             System.out.println("Time = null");
-            bindingResult.rejectValue("time", "error", "Please enter time.");
+            bindingResult.rejectValue("time","error","Please enter time.");
+            return "Invalid time";
         }
         if (tr.getDate() == null) {
             System.out.println("Date is empty");
-            bindingResult.rejectValue("date", "error", "Please enter date.");
+            bindingResult.rejectValue("date","error","Please enter date.");
+            return "Empty date";
         }
+        return "Passed homeValidation";
     }
 
     public Model modelGeneration(Model model, TimeRegistration timeRegistration) {

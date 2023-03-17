@@ -67,6 +67,7 @@ public class LoggingController {
     public RedirectView PostTimeReg(HttpSession session, Model model, @Valid TimeRegistration timeRegistration,
                               BindingResult br, RedirectAttributes ra) {
         RedirectView rvHome = new RedirectView("/home", true);
+
         User user = (User) session.getAttribute("user");
         service.homeValidation(timeRegistration, br);
 
@@ -75,9 +76,9 @@ public class LoggingController {
             service.modelGeneration(model,new TimeRegistration());
             return rvHome;
         }
-
         timeRegistration.setUserId(user.getId());
         service.saveTime(timeRegistration);
+
         ra.addFlashAttribute("SuccesTimeReg", "We have received your input. An overview can be retrieved below");
         return rvHome;
     }

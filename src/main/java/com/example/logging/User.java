@@ -38,6 +38,7 @@ public class User {
     public User() {
     }
 
+
     public User(String username, String password, String firstname, String lastname) {
         this.username = username;
         this.password = password;
@@ -53,6 +54,15 @@ public class User {
         this.password = password;
         //userTimeRegistrations = createTestArray();
 
+    }
+
+    public User(String firstName, String lastName, String username, String email, String password, String repeatPassword) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.repeatPassword = repeatPassword;
     }
 
     @Override
