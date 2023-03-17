@@ -31,7 +31,7 @@ public class LoggingController {
     @GetMapping("/")
     String loadLogin() {
         /*model.addAttribute("users", service.getUsers());*/
-        service.createTestArray();
+        //service.createTestArray(); <- generate sqldata
         return "login";
     }
 
@@ -66,6 +66,7 @@ public class LoggingController {
             }
         }*/
         modelGeneration(model,user,new TimeRegistration());
+        session.setAttribute("userTimeRegistrations",service.getUserTimeRegistrations(user.getId()));
         return "home";
     }
 
@@ -81,7 +82,11 @@ public class LoggingController {
             modelGeneration(model,user,timeRegistration);
            return "home";
         }
+        System.out.println(timeRegistration);
+        timeRegistration.setUserId(user.getId());
+        System.out.println(timeRegistration);
         service.saveTime(timeRegistration);
+
         return "redirect:/home";
     }
 
@@ -125,8 +130,6 @@ public class LoggingController {
         return "login";
     }
     public void homeValidation(TimeRegistration tr, BindingResult bindingResult, Model model, User user) {
-
-        System.out.println("Enter homeValidation");
 
         if(tr.getTime() == 0) {
             System.out.println("Time = null");
