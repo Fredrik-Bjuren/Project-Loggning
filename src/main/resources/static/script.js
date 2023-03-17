@@ -1,4 +1,5 @@
 
+$('#modalDetailTimeReg').modal(options)
 
 
             //sum Table Time Total
