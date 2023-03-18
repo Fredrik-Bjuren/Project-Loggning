@@ -1,5 +1,7 @@
 
-$('#modalDetailTimeReg').modal(options)
+$('#ModalShow').click(function() {
+  $('#modalDetailTimeReg').modal('show');
+});
 
             //sum Table Time Total
             var table = document.getElementById("table")

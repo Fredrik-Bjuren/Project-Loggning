@@ -98,7 +98,7 @@
         <th scope="col" onclick="sortTable(3)"><strong>Comment</strong></th>
         <th hidden></th>
     </tr>
-    <tr th:each="timeReg:${session.userTimeRegistrations}" data-toggle="modal"  data-target="#modalDetailTimeReg" >
+    <tr th:each="timeReg:${session.userTimeRegistrations}" data-toggle="modal"  data-target="#modalDetailTimeReg" id="ModalShow" value="Show modal">
         <td scope="row" th:text="${timeReg.date}"></td>
         <td th:text="${#numbers.formatDecimal(timeReg.time,0,2)}"></td>
         <td th:text="${timeReg.typeOfTime}"></td>
@@ -116,7 +116,7 @@
 </table>
 
 <!-- Modal -->
-<div class="modal fade" id="modalDetailTimeReg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
+<div class="modal fade hidden" id="modalDetailTimeReg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
 
         <!-- Modal Content -->
@@ -133,7 +133,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-info">Edit</button>
-                <button type="button" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn btn-danger" onclick="/delete/{id}">Delete</button>
             </div>
         </div>
     </div>

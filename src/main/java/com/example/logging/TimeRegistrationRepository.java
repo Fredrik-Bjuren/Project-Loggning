@@ -10,4 +10,7 @@ public interface TimeRegistrationRepository extends CrudRepository<TimeRegistrat
     List<TimeRegistration> findAllByUserId(Integer userId);
 
     List<TimeRegistration> findByUserId(Integer userId);
+
+
+    void deleteById(Integer id);
 }

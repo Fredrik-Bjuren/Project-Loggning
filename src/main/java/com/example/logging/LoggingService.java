@@ -45,6 +45,11 @@ public class LoggingService {
         return trRepository.save(timeRegistration);
     }
 
+    public void deleteTime(Integer id) {
+        trRepository.deleteById(id);
+    }
+
+
     public RedirectView signupValidation(User user, BindingResult bindingResult, String repeatPassword, RedirectAttributes ra) {
         RedirectView rvSignUp = new RedirectView("/signup", false);
         RedirectView rvLogin = new RedirectView("/", true);
@@ -101,4 +106,5 @@ public class LoggingService {
         return testArray;
     }
 
-}
+
+    }

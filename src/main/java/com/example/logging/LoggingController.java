@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -80,8 +81,13 @@ public class LoggingController {
         ra.addFlashAttribute("SuccesTimeReg", "We have received your input. An overview can be retrieved below");
         return rvHome;
     }
-    
-    //Edit & Delete funktions
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Integer id){
+        service.deleteTime(id);
+        return "redirect:/home";
+    }
+
 
     @PostMapping("/logout")
     public String logout(HttpSession session, HttpServletResponse res) {
