@@ -6,18 +6,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.PropertyEditorRegistry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.beans.PropertyEditor;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
@@ -209,6 +210,62 @@ class LoggingApplicationTests {
 			return null;
 		}
 	};
+	RedirectAttributes ra = new RedirectAttributes() {
+		@Override
+		public RedirectAttributes addAttribute(String attributeName, Object attributeValue) {
+			return null;
+		}
+
+		@Override
+		public RedirectAttributes addAttribute(Object attributeValue) {
+			return null;
+		}
+
+		@Override
+		public RedirectAttributes addAllAttributes(Collection<?> attributeValues) {
+			return null;
+		}
+
+		@Override
+		public Model addAllAttributes(Map<String, ?> attributes) {
+			return null;
+		}
+
+		@Override
+		public RedirectAttributes mergeAttributes(Map<String, ?> attributes) {
+			return null;
+		}
+
+		@Override
+		public boolean containsAttribute(String attributeName) {
+			return false;
+		}
+
+		@Override
+		public Object getAttribute(String attributeName) {
+			return null;
+		}
+
+		@Override
+		public Map<String, Object> asMap() {
+			return null;
+		}
+
+		@Override
+		public RedirectAttributes addFlashAttribute(String attributeName, Object attributeValue) {
+			return null;
+		}
+
+		@Override
+		public RedirectAttributes addFlashAttribute(Object attributeValue) {
+			return null;
+		}
+
+		@Override
+		public Map<String, ?> getFlashAttributes() {
+			return null;
+		}
+	};
 	@Autowired
 	LoggingService service;
 	@Autowired
@@ -221,10 +278,13 @@ class LoggingApplicationTests {
 	}
 	@Test
 	void signupValidationTest() {
+		RedirectView rvSignup = new RedirectView("/signup",false);
+		RedirectView rvLogin = new RedirectView("/",true);
 		User user = new User("Gustav","Green","MrGreen","hej@hej.se","green123","green123");
 		User user2 = new User("Beorn","Blue","MrBlue","hej@hej.se","blue123","red123");
-		Assertions.assertEquals("login",service.signupValidation(user,br,user.getRepeatPassword()));
-		Assertions.assertEquals("signup",service.signupValidation(user2,br,user2.getRepeatPassword()));
+		Assertions.assertEquals(rvLogin.getUrl(),service.signupValidation(user,br,user.getRepeatPassword(),ra).getUrl());
+		Assertions.assertEquals(rvSignup.getUrl(),service.signupValidation(user2,br,user2.getRepeatPassword(),ra).getUrl());
+
 	}
 	@Test
 	void homeValidationTest() {
@@ -252,32 +312,7 @@ class LoggingApplicationTests {
 		long trCount = timeRegRepo.count();
 		service.saveTime(tr);
 		Assertions.assertEquals(timeRegRepo.count(),trCount+1);
+		timeRegRepo.delete(tr);
+		Assertions.assertEquals(timeRegRepo.count(),trCount);
 	}
-
-/*	@Test
-	void confirmPasswordTest() {
-		// pw & cPw = same -> expect login
-		// pw & cPw != same -> expect signup (wrong input)
-		User user = new User("Fredrik","email","fredrik","bjuren","login","login");
-		User user2 = new User("Fredrik","email","fredrik","bjuren","signup","sign");
-		Assertions.assertEquals("login",lc.validation(user, br));
-		Assertions.assertEquals("signup",lc.validation(user2, br));
-	}
-
-	@Test
-	void enumSumTest(){
-		List<TimeRegistration> times = new ArrayList<>();
-		times.add(new TimeRegistration(2.0,TypeRegTime.WORK,"2022-12-22",""));
-		times.add(new TimeRegistration(2.0,TypeRegTime.WORK,"2022-12-23",""));
-		times.add(new TimeRegistration(2.0,TypeRegTime.WORK,"2022-12-24",""));
-		times.add(new TimeRegistration(2.0,TypeRegTime.WORK,"2022-12-25",""));
-		times.add(new TimeRegistration(0.5,TypeRegTime.PAID_LEAVE,"2022-12-25",""));
-		times.add(new TimeRegistration(2.0,TypeRegTime.PAID_LEAVE,"2022-12-26",""));
-		User user = new User(times);
-		Assertions.assertEquals(8.0,user.getEnumSum(TypeRegTime.WORK));
-		Assertions.assertEquals(2.5,user.getEnumSum(TypeRegTime.PAID_LEAVE));
-	}*/
-
-
-
 }

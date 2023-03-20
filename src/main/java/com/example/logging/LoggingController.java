@@ -5,15 +5,17 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.List;
 
 @Controller
 public class LoggingController {
@@ -29,7 +31,7 @@ public class LoggingController {
     @PostMapping("/")
     public RedirectView postLogin(Model model, HttpSession session, @RequestParam String username,
                                   @RequestParam String password, RedirectAttributes ra) {
-        RedirectView rvHome = new RedirectView("/home", true);
+        RedirectView rvHome = new RedirectView("/home3", true);
         RedirectView rvLogin = new RedirectView("/", true);
         for (var user : service.getUsers()) {
             if (username.equals(user.getUsername()) && password.equals(user.getPassword())) {
@@ -57,9 +59,24 @@ public class LoggingController {
     @GetMapping("/home")
     public String loadTimReg(@RequestParam(required = false) String id, Model model, HttpSession session, TimeRegistration timeRegistration) {
         User user = (User) session.getAttribute("user");
-
-        service.modelGeneration(model,id != null?service.getTimeRegistrationById(Integer.valueOf(id)):new TimeRegistration());
+        service.modelGeneration(model,id != null ? service.getTimeRegistrationById(Integer.valueOf(id)) : new TimeRegistration());
         session.setAttribute("userTimeRegistrations", service.getUserTimeRegistrations(user.getId()));
+        return "home";
+    }
+    @GetMapping("/home3")
+    public String paginationTEST(@RequestParam(required = false) String id, Model model, HttpSession session) {
+        return getPaginatedTimeReg(id,model,session,1, "date", "asc");
+    }
+    @GetMapping("/page/{currentPage}")
+    public String getPaginatedTimeReg(@RequestParam(required = false) String id, Model model, HttpSession session,
+                                      @PathVariable(required = false) int currentPage,
+                                      @Param("sortField") String sortField, @Param("sortDir") String sortDir) {
+        User user = (User) session.getAttribute("user");
+        //sortDir = "asc";
+
+        service.paginationModelGeneration(model,id != null ? service.getTimeRegistrationById(Integer.valueOf(id)) : new TimeRegistration(),
+                session, currentPage, sortField, sortDir);
+
         return "home";
     }
 
@@ -84,7 +101,9 @@ public class LoggingController {
     }
     
     //Edit & Delete funktions
-
+    @DeleteMapping("/home/{id}") //or /delete/id?
+    public void delete(@PathVariable("id") Integer id){
+        TimeRegistration timeRegistration = service.deleteTime(id);}
     @PostMapping("/logout")
     public String logout(HttpSession session, HttpServletResponse res) {
         session.removeAttribute("username"); // this would be an ok solution
@@ -94,5 +113,6 @@ public class LoggingController {
         res.addCookie(cookie);
         return "login";
     }
+
 
 }
