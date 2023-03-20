@@ -4,6 +4,7 @@ document.getElementById("regId").innerText = id;
 document.getElementById("created-data").innerText = created;
 document.getElementById("updated-data").innerText = updated;
 document.getElementById("hrefdata").href = "/page/" + currentPage + "?id=" + id;
+document.getElementById("delete-href").href = "/delete/" + id + "?page="+currentPage;
 }
 
 //Lets the modal appear on click in a table row.

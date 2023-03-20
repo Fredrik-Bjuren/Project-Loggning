@@ -110,9 +110,12 @@ public class LoggingController {
     }
     
     //Edit & Delete funktions
-    @DeleteMapping("/home/{id}") //or /delete/id?
-    public void delete(@PathVariable("id") Integer id){
-        TimeRegistration timeRegistration = service.deleteTime(id);}
+    @GetMapping("/delete/{id}") //or /delete/id?
+    public String delete(@PathVariable("id") String id, @RequestParam String page) throws Exception {
+        service.deleteTime(id);
+        return "redirect:/page/"+page;
+    }
+
     @PostMapping("/logout")
     public String logout(HttpSession session, HttpServletResponse res) {
         session.removeAttribute("username"); // this would be an ok solution

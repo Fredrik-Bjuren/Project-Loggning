@@ -134,7 +134,9 @@ public class LoggingService {
     }
 
 
-    public TimeRegistration deleteTime(Integer id) {
-        return new TimeRegistration();
+    public void deleteTime(String id) throws Exception {
+        trRepository.delete(trRepository.findById(Integer.valueOf(id)).orElseThrow(()-> {
+            return new Exception("Timeregistration can't be deleted as it not exists.");
+        }));
     }
 }
