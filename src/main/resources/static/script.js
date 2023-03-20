@@ -1,7 +1,11 @@
+const setDataModal = (id) => {
+var link = document.getElementById("hrefdata");
+link.href = "/home?id="+id;
+}
+
 
 //Lets the modal appear on click in a table row.
 $('#ModalShow').click(function() {  $('#modalDetailTimeReg').modal('show');});
-
 
             //sum Table Time Total
             var table = document.getElementById("table")
