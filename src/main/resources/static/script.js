@@ -3,12 +3,12 @@ const setDataModal = (id,created,updated) => {
 document.getElementById("regId").innerText = id;
 document.getElementById("created").innerText = created;
 document.getElementById("updated").innerText = updated;
-document.getElementById("hrefdata").href = "/page/" + currentPage + "?=" + id;
+document.getElementById("hrefdata").href = "/page/" + currentPage + "?id=" + id;
 }
 
 //Lets the modal appear on click in a table row.
 //$('#ModalShow').click(function() {  $('#modalDetailTimeReg').modal('show');});
-$('#modalDetailTimeReg').options('hide');
+$('#modalDetailTimeReg').modal('hide');
 
             //sum Table Time Total
             var table = document.getElementById("table")

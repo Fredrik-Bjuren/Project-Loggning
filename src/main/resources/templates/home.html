@@ -131,7 +131,7 @@
     <a th:if="${currentPage != 1}" th:href="@{'/page/1?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">First</a>
     <span th:unless="${currentPage != 1}">First</span>
 
-    <a th:if="${currentPage != 1}" th:href="@{'/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Previous</a>
+    <a th:if="${currentPage > 1}" th:href="@{'/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Previous</a>
     <span th:unless="${currentPage != 1}">Previous</span>
 
     <!-- Show clickable pages-->
@@ -226,7 +226,7 @@ var typed = new Typed('.typed', options);
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
-<script src="/script.js"></script>
+<script src="/script.js" th:inline="javascript"></script>
 </body>
 </html>
 
