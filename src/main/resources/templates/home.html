@@ -70,6 +70,9 @@
                 </div>
             </div>
             <input type="hidden" th:field="*{id}">
+            <input type="hidden" th:field="*{userId}">
+            <input type="hidden" th:field="*{created}">
+            <input type="hidden" th:field="*{updated}">
             <div class="row">
                 <div class="col-sm-5">
                     <input class="submit" Type="submit"/>
@@ -114,8 +117,6 @@
             <td th:text="${#numbers.formatDecimal(timeReg.time,1,2,'POINT')}"></td>
             <td th:text="${timeReg.typeOfTime}"></td>
             <td th:text="${timeReg.comment}"></td>
-            <td hidden th:text="${timeReg.created}"></td>
-            <td hidden th:text="${timeReg.updated}"></td>
         </tr>
     </div>
 
@@ -177,8 +178,8 @@
                     </tr>
                     <tr>
                         <td id="regId">Registration-ID</td>
-                        <td id="created">Created</td>
-                        <td id="updated">Updated</td>
+                        <td id="created-data">Created</td>
+                        <td id="updated-data">Updated</td>
                     </tr>
                 </table>
             </div>
