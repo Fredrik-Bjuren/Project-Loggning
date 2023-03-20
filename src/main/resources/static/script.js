@@ -5,7 +5,8 @@ document.getElementById("updated").innerText = updated;
 document.getElementById("hrefdata").href = "/home?id="+id;
 }
 
-$('#modalDetailTimeReg').modal("hide")
+//Lets the modal appear on click in a table row.
+$('#ModalShow').click(function() {  $('#modalDetailTimeReg').modal('show');});
 
             //sum Table Time Total
             var table = document.getElementById("table")

@@ -91,13 +91,22 @@
 
 <table id="table" class="table" th:if="${session.userTimeRegistrations != null}">
     <tr>
-        <th scope="col" onclick="sortTable(0)"><strong>Date</strong></th>
-        <th scope="col" onclick="sortTable(1)"><strong>Hours</strong></th>
-        <th scope="col" onclick="sortTable(2)"><strong>Category</strong></th>
-        <th scope="col" onclick="sortTable(3)"><strong>Comment</strong></th>
+        <th scope="col">
+            <a th:href="@{'/page/' + ${currentPage} + '?sortField=date&sortDir=' + ${reverseSortDir}}"><strong>Date</strong></a>
+        </th>
+        <th scope="col">
+            <a th:href="@{'/page/' + ${currentPage} + '?sortField=time&sortDir=' + ${reverseSortDir}}"><strong>Hours</strong></a>
+        </th>
+        <th scope="col">
+            <a th:href="@{'/page/' + ${currentPage} + '?sortField=typeOfTime&sortDir=' + ${reverseSortDir}}"><strong>Category</strong></a>
+        </th>
+        <th scope="col">
+            <a th:href="@{'/page/' + ${currentPage} + '?sortField=comment&sortDir=' + ${reverseSortDir}}"><strong>Comment</strong></a>
+        </th>
         <th hidden></th>
         <th hidden></th>
     </tr>
+    
     <div th:each="timeReg:${session.userTimeRegistrations}">
         <tr th:onclick="setDataModal([[${timeReg.id}]],[[${timeReg.created}]],[[${timeReg.updated}]])"
             data-toggle="modal" data-target="#modalDetailTimeReg">
@@ -111,11 +120,38 @@
     </div>
 
 </table>
+
+<!-- Pagination -->
+<div>
+    Total registrations: [[${totalRegistrations}]] -
+    Page [[${currentPage}]] of [[${totalPages}]] -
+
+    <a th:if="${currentPage != 1}" th:href="@{'/page/1?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">First</a>
+    <span th:unless="${currentPage != 1}">First</span>
+
+    <a th:if="${currentPage != 1}" th:href="@{'/page/' + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Previous</a>
+    <span th:unless="${currentPage != 1}">Previous</span>
+
+    <!-- Show clickable pages-->
+    <span th:each="i : ${#numbers.sequence(1, totalPages)}">
+        <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}">[[${i}]]</a>
+        <span th:unless="${currentPage != i}">[[${i}]]</span>&nbsp;
+    </span>
+
+    <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+    <span th:unless="${currentPage < totalPages}">Next</span>
+
+    <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+    <span th:unless="${currentPage < totalPages}">Last</span>
+</div>
+
 <table class="table table-hover" th:if="${session.userTimeRegistrations != null}">
     <tr>
         <th scope="col"><strong><i id="sumTime">Hours</i></strong></th>
     </tr>
 </table>
+
+
 
 <!-- Modal -->
 <div class="modal fade" id="modalDetailTimeReg" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

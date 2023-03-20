@@ -1,5 +1,6 @@
 package com.example.logging;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -11,6 +12,10 @@ import java.util.*;
 
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,11 +37,18 @@ public class LoggingService {
         return (List<User>) userRepository.findAll();
     }
 
-
     public List<TimeRegistration> getUserTimeRegistrations(Integer userId) {
         return (List<TimeRegistration>) trRepository.findByUserId(userId).orElse(new ArrayList<>());
     }
-
+    public TimeRegistration getTimeRegistrationById(Integer id) {
+        return (TimeRegistration) trRepository.findById(id).orElse(new TimeRegistration());
+    }
+    public Page<TimeRegistration> getUserTimeRegistrationsPagination(int pageNumber, String sortField, String sortDir) {
+        Sort sort = Sort.by(sortField);
+        sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
+        Pageable pageable = PageRequest.of(pageNumber - 1,8, sort);
+        return trRepository.findAll(pageable);
+    }
     public User addUser(User user) {
         return userRepository.save(user);
     }
@@ -84,6 +96,26 @@ public class LoggingService {
         model.addAttribute("maxDate", maxDate.toString());
         return model;
     }
+    public Model paginationModelGeneration(Model model, TimeRegistration timeRegistration, HttpSession session, int currentPage, String sortField, String sortDir) {
+        Page<TimeRegistration> page = getUserTimeRegistrationsPagination(currentPage, sortField, sortDir);
+        int totalPages = page.getTotalPages();
+        long totalRegistrations = page.getTotalElements();
+        session.setAttribute("userTimeRegistrations", page);
+        model.addAttribute("timeRegistration", timeRegistration);
+        model.addAttribute("TypeOfTime", TypeOfTime.values());
+        model.addAttribute("minDate", minDate.toString());
+        model.addAttribute("maxDate", maxDate.toString());
+        model.addAttribute("currentPage",currentPage);
+        model.addAttribute("totalPages",totalPages);
+        model.addAttribute("totalRegistrations",totalRegistrations);
+        model.addAttribute("sortField",sortField);
+        model.addAttribute("sortDir",sortDir);
+
+        String reverseSortDir = sortDir.equals("asc") ? "desc" : "asc";
+        model.addAttribute("reverseSortDir",reverseSortDir);
+
+        return model;
+    }
 
      public List<TimeRegistration> createTestArray() {
         List<TimeRegistration> testArray = new ArrayList<>();
@@ -101,8 +133,8 @@ public class LoggingService {
         return testArray;
     }
 
-    public TimeRegistration getTimeRegistrationById(Integer id) {
 
-        return (TimeRegistration) trRepository.findById(id).orElse(new TimeRegistration());
+    public TimeRegistration deleteTime(Integer id) {
+        return new TimeRegistration();
     }
 }
