@@ -72,7 +72,7 @@ class LoggingControllerTest {
     @Test
     void home() throws Exception {
         mvc.perform(MockMvcRequestBuilders
-                        .get("/home").sessionAttr("user",new User()))
+                        .get("/page/1").sessionAttr("user",new User()))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(MockMvcResultMatchers.content().
                         string(containsString("Loggs")));
