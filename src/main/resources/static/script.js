@@ -1,8 +1,8 @@
 const currentPage = document.getElementById("currentPage").innerText;
 const setDataModal = (id,created,updated) => {
 document.getElementById("regId").innerText = id;
-document.getElementById("created-data").innerText = created;
-document.getElementById("updated-data").innerText = updated;
+document.getElementById("created-data").innerText = created.slice(0,16);
+document.getElementById("updated-data").innerText = updated.slice(0,16);
 document.getElementById("hrefdata").href = "/page/" + currentPage + "?id=" + id;
 document.getElementById("delete-href").href = "/delete/" + id + "?page="+currentPage;
 }
